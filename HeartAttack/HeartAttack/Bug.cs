@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using HeartAttack.Timing;
 
@@ -13,6 +14,8 @@ namespace HeartAttack
         private Sprite m_Sprite;
         private int m_Health;
         private int radius;
+
+        public SoundEffect m_bugDeathSound;
 
         private bool runningAnimation = false;
 
@@ -34,7 +37,7 @@ namespace HeartAttack
             {
                 frames.Add(content.Load<Texture2D>("Bug/bug" + i));
             }
-
+            m_bugDeathSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("bugDeath1");
             m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.Scale = new Vector2(0.05f, 0.05f);
            // m_Sprite.Centre *= m_Sprite.Scale;
@@ -94,6 +97,7 @@ namespace HeartAttack
             if ((m_Sprite.Position - pBullet.Position).Length() <
                 pBullet.Radius + radius)
             {
+                m_bugDeathSound.Play();
                 HeartAttack.theGameInstance.bugsKilled++;
                 return true;
             }
