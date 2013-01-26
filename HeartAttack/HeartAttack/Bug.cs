@@ -26,9 +26,8 @@ namespace HeartAttack
             m_Health = pHealth;
             radius = 12;
 
-            m_Sprite.Scale = new Vector2(0.05f,0.05f);
-
             frames = new List<Texture2D>();
+            var content = HeartAttack.theGameInstance.Content;
 
             for (int i = 1 ; i <= 6 ; i++)
             {
@@ -36,6 +35,7 @@ namespace HeartAttack
             }
 
             m_Sprite = new Sprite(frames[0], pPosition);
+            m_Sprite.Scale = new Vector2(0.05f, 0.05f);
             m_Sprite.Centre *= m_Sprite.Scale;
             m_Sprite.Colour = Color.Transparent;
 

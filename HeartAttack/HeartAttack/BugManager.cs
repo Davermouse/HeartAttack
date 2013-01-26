@@ -40,7 +40,7 @@ namespace HeartAttack
                 center.X + distance * (float)Math.Sin(angle),
                 center.Y + distance * (float)Math.Cos(angle));
 
-            var speed = (float)(5 + random.NextDouble() * 10);
+            var speed = (float)(10 + (m_Random.NextDouble() * 20));
             return new Bug(scene, position, 10, speed);
         }
        

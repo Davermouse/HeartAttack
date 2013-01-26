@@ -20,7 +20,7 @@ namespace HeartAttack
         private int m_BulletDelay = 500;
         private int m_Health;
         private int m_BulletPower = 10;
-        private int m_BulletSpeed = 100;
+        private int m_BulletSpeed = 150;
 
         private Texture2D normalHeart;
         private List<Texture2D> lFrames;
