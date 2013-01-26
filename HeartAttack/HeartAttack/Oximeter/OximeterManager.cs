@@ -12,7 +12,7 @@ namespace HeartAttack.Oximeter
 
         public OximeterManager()
         {
-            this.SimulatedHeartRate = 20;
+            this.SimulatedHeartRate = 70;
         }
 
         private OximeterComms Oximeter

@@ -102,15 +102,33 @@ namespace HeartAttack
             }
 
             var timeSinceBeat = pGameTime.TotalGameTime.TotalSeconds - LastBeatTime;
-            if (timeSinceBeat < 0.1)
+
+            // TODO: Tidy this up.
+            if (timeSinceBeat < 0.075)
+            {
+                m_Sprite.Texture = sFrames[0];
+            }
+            else if (timeSinceBeat < 0.15)
+            {
+                m_Sprite.Texture = sFrames[1];
+            }
+            else if (timeSinceBeat < 0.225)
+            {
+                m_Sprite.Texture = sFrames[2];
+            }
+            else if (timeSinceBeat < 0.3)
+            {
+                m_Sprite.Texture = sFrames[3];
+            } 
+            else if (timeSinceBeat < 0.375)
             {
                 m_Sprite.Texture = lFrames[0];
             }
-            else if (timeSinceBeat < 0.2)
+            else if (timeSinceBeat < 0.45)
             {
                 m_Sprite.Texture = lFrames[1];
             }
-            else if (timeSinceBeat < 0.3)
+            else if (timeSinceBeat < 0.525)
             {
                 m_Sprite.Texture = lFrames[2];
             }
