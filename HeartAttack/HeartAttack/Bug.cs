@@ -16,6 +16,7 @@ namespace HeartAttack
         private int radius;
 
         public SoundEffect m_bugDeathSound;
+        public SoundEffect m_HeartHitSound;
 
         private bool runningAnimation = false;
 
@@ -38,6 +39,7 @@ namespace HeartAttack
                 frames.Add(content.Load<Texture2D>("Bug/bug" + i));
             }
             m_bugDeathSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("bugDeath1");
+            m_HeartHitSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("heartHit");
             m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.Scale = new Vector2(0.05f, 0.05f);
            // m_Sprite.Centre *= m_Sprite.Scale;
@@ -117,6 +119,7 @@ namespace HeartAttack
 
         public void HitPlayer(PlayerThing player)
         {
+            m_HeartHitSound.Play();
             handleDeath();
         }
 

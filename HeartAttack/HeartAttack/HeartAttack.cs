@@ -36,6 +36,7 @@ namespace HeartAttack
             bugsKilled = 0;
 
             graphics.SynchronizeWithVerticalRetrace = true;
+           // graphics.IsFullScreen = true;
         }
 
         public OximeterManager Oximeter
