@@ -18,10 +18,12 @@ namespace HeartAttack
             m_Health = pHealth;
             radius = 12;
             m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bug"), pPosition);
+            m_Sprite.Scale = new Vector2(0.1f,0.1f);
             Vector2 velocity = (new Vector2(HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width / 2,
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height / 2) - pPosition);
             velocity.Normalize();
             velocity *= pSpeed;         
+
 
             m_Sprite.AddUpdater(new VelocityUpdater(velocity));
         }
