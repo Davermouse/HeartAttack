@@ -21,20 +21,57 @@ namespace HeartAttack
         private int m_BulletPower = 10;
         private int m_BulletSpeed = 100;
 
+        private Texture2D normalHeart;
+        private List<Texture2D> lFrames;
+        private List<Texture2D> sFrames;
+
         public PlayerThing(MainGameScene scene) : base(scene)
         {
-            Texture2D texture = HeartAttack.theGameInstance.Content.Load<Texture2D>("playerThing");
-            m_Sprite = new Sprite(texture,
+            var content = HeartAttack.theGameInstance.Content;
+
+            normalHeart = content.Load<Texture2D>("Heart/Heart");
+
+            lFrames = new List<Texture2D>()
+            {
+                content.Load<Texture2D>("Heart/Heartl1"),
+                content.Load<Texture2D>("Heart/Heartl2"),
+                content.Load<Texture2D>("Heart/Heartl3"),
+                content.Load<Texture2D>("Heart/Heartl4")
+            };
+
+            sFrames = new List<Texture2D>()
+            {
+                content.Load<Texture2D>("Heart/Hearts1"),
+                content.Load<Texture2D>("Heart/Hearts2"),
+                content.Load<Texture2D>("Heart/Hearts3"),
+                content.Load<Texture2D>("Heart/Hearts4")
+            };
+
+            m_Sprite = new Sprite(normalHeart,
                 DirtyGlobalHelpers.CentreOfScreen());
 
             this.m_Health = 100;
-            this.Radius = 15;
+            this.Radius = 45;
         }
 
         public int Radius
         {
             get;
             private set;
+        }
+
+        public int Health
+        {
+            get
+            {
+                return m_Health;
+            }
+        }
+
+        public double LastBeatTime
+        {
+            get;
+            set;
         }
 
         public Vector2 Position
@@ -44,6 +81,15 @@ namespace HeartAttack
 
         public override void Update(GameTime pGameTime)
         {
+            foreach (var bug in Scene.CollidingEntities.OfType<Bug>())
+            {
+                if (bug.CollidesWith(this))
+                {
+                    bug.HitPlayer(this);
+                    this.HitByBug(bug);
+                }
+            }
+
             if (m_TimeToNextBullet > 0)
             {
                 m_TimeToNextBullet -= pGameTime.ElapsedGameTime.Milliseconds;
@@ -53,6 +99,28 @@ namespace HeartAttack
             if (length < 1.1 && length > 0.9)
             {
                 m_Sprite.Allign(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left);
+            }
+
+            var timeSinceBeat = pGameTime.TotalGameTime.TotalSeconds - LastBeatTime;
+            if (timeSinceBeat < 0.1)
+            {
+                m_Sprite.Texture = lFrames[0];
+            }
+            else if (timeSinceBeat < 0.2)
+            {
+                m_Sprite.Texture = lFrames[1];
+            }
+            else if (timeSinceBeat < 0.3)
+            {
+                m_Sprite.Texture = lFrames[2];
+            }
+            else if (timeSinceBeat < 0.4)
+            {
+                m_Sprite.Texture = lFrames[3];
+            }
+            else
+            {
+                m_Sprite.Texture = normalHeart;
             }
         }
 

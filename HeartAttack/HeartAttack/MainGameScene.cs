@@ -34,10 +34,26 @@ namespace HeartAttack
             private set;
         }
 
+        public PlayerThing Player
+        {
+            get
+            {
+                return m_Player;
+            }
+        }
+
         public List<Entity> Entities
         {
             get;
             private set;
+        }
+
+        public IEnumerable<Entity> CollidingEntities
+        {
+            get
+            {
+                return Entities.Where(e => !e.IgnoresCollisions);
+            }
         }
 
         public override Scene Update(GameTime pGameTime)
@@ -82,6 +98,11 @@ namespace HeartAttack
                 (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");
 
             spriteBatch.DrawString(HeartAttack.theGameInstance.Font, info, new Vector2(20, 20), Color.White);
+
+            var score = "Health: " + Player.Health;
+            var scoreWidth = HeartAttack.theGameInstance.Font.MeasureString(score);
+            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, score, new Vector2(
+                HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - scoreWidth.X, 20), Color.White);
 
             spriteBatch.End();
         }

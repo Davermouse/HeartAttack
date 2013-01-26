@@ -30,6 +30,8 @@ namespace HeartAttack
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             theGameInstance = this;
+
+            graphics.SynchronizeWithVerticalRetrace = true;
         }
 
         public OximeterManager Oximeter

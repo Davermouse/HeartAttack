@@ -35,8 +35,6 @@ namespace HeartAttack
             m_HeartBeat.Play();
             var newPing = new Ping(scene);
             scene.Entities.Add(newPing);
-
-          //  new Timer(scene.ClockManager, 5, true, (s, e) => this.m_Pings.Remove(newPing));
         }
 
         public void Update(GameTime pGameTime)
@@ -44,6 +42,7 @@ namespace HeartAttack
             if (HeartAttack.theGameInstance.Oximeter.HasBeat)
             {
                 FirePing();
+                scene.Player.LastBeatTime = pGameTime.TotalGameTime.TotalSeconds;
             }
 
             foreach (Ping ping in m_Pings)

@@ -20,7 +20,7 @@ namespace HeartAttack
             this.scene = scene;
             m_Health = pHealth;
             radius = 12;
-            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bug"), pPosition);
+            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("Bug/bug1"), pPosition);
             m_Sprite.Scale = new Vector2(0.1f,0.1f);
             m_Sprite.Colour = Color.Transparent;
 
@@ -78,6 +78,8 @@ namespace HeartAttack
 
         private void handleDeath()
         {
+            this.IgnoresCollisions = true;
+
             var deathLength = 0.2f;
 
             m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(this.m_Sprite.Scale.X), new Vector2(0), (int)(deathLength * 100)));

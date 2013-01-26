@@ -16,7 +16,7 @@ namespace HeartAttack
         public Bullet(MainGameScene scene, Vector2 pPosition, Vector2 pVelocity, int pPower) : base(scene)
         {
             m_Power = pPower;
-            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bullet"), pPosition);
+            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bullet1"), pPosition);
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
             m_Sprite.Scale = new Vector2(0.1f);
         }

@@ -20,6 +20,12 @@ namespace HeartAttack
             protected set;
         }
 
+        public bool IgnoresCollisions
+        {
+            get;
+            protected set;
+        }
+
         public bool IsDead
         {
             get;
