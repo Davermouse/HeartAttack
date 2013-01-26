@@ -93,6 +93,7 @@
     <Compile Include="SpriteUpdater.cs" />
     <Compile Include="Timing\Clock.cs" />
     <Compile Include="Timing\ClockManager.cs" />
+    <Compile Include="Timing\SpriteAnimation.cs" />
     <Compile Include="Timing\Timer.cs" />
   </ItemGroup>
   <ItemGroup>

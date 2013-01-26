@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using HeartAttack.Timing;
 
 namespace HeartAttack
 {
@@ -13,13 +14,37 @@ namespace HeartAttack
         private Sprite m_Sprite;
         private int m_Power;
 
-        public Bullet(MainGameScene scene, Vector2 pPosition, Vector2 pVelocity, int pPower) : base(scene)
+        private List<Texture2D> frames = new List<Texture2D>();
+
+        public Bullet(MainGameScene scene, Vector2 pPosition, Vector2 pVelocity, int pPower)
+            : base(scene)
         {
             m_Power = pPower;
-            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bullet1"), pPosition);
+
+            frames = new List<Texture2D>();
+            var content = HeartAttack.theGameInstance.Content;
+            for (int i = 1; i <= 5; i++)
+            {
+                frames.Add(content.Load<Texture2D>("Bullet/bullet" + i));
+            }
+
+            m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
             m_Sprite.Scale = new Vector2(0.05f);
             m_Sprite.Centre *= m_Sprite.Scale;
+            var anim = new SpriteAnimation(Scene.ClockManager,
+                    frames,
+                    frames[0],
+                    this.m_Sprite,
+                    0.05f);
+
+        //    anim.Start();
+
+            anim.Complete += (s, e) =>
+                {
+                    anim.SkipToBegin();
+                    anim.Start();
+                };
         }
 
         public Vector2 Position

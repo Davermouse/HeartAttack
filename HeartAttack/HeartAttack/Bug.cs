@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using HeartAttack.Timing;
 
 namespace HeartAttack
 {
@@ -13,17 +14,30 @@ namespace HeartAttack
         private int m_Health;
         private int radius;
 
+        private bool runningAnimation = false;
+
         private MainGameScene scene;
+
+        private List<Texture2D> frames;
 
         public Bug(MainGameScene scene, Vector2 pPosition, int pHealth, float pSpeed) : base(scene)
         {
             this.scene = scene;
             m_Health = pHealth;
             radius = 12;
-            m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("Bug/bug1"), pPosition);
+
             m_Sprite.Scale = new Vector2(0.05f,0.05f);
-            m_Sprite.Colour = Color.Transparent;
+
+            frames = new List<Texture2D>();
+
+            for (int i = 1 ; i <= 6 ; i++)
+            {
+                frames.Add(content.Load<Texture2D>("Bug/bug" + i));
+            }
+
+            m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.Centre *= m_Sprite.Scale;
+            m_Sprite.Colour = Color.Transparent;
 
             Vector2 velocity = (new Vector2(HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width / 2,
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height / 2) - pPosition);
@@ -41,6 +55,24 @@ namespace HeartAttack
 
         public override void Update(GameTime pGameTime)
         {
+            if (!runningAnimation)
+            {
+                if (new Random().NextDouble() > 0.99)
+                {
+                    runningAnimation = true;
+
+                    var animation = new SpriteAnimation(Scene.ClockManager,
+                        this.frames,
+                        this.frames[0],
+                        this.m_Sprite,
+                        0.15f);
+
+                    animation.Complete += (s, e) => this.runningAnimation = false;
+
+                    animation.Start();
+                }
+            }
+
             m_Sprite.Update(pGameTime);
         }
 

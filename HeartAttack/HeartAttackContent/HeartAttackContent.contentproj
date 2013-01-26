@@ -88,27 +88,27 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="bullet1.png">
+    <Compile Include="Bullet\bullet1.png">
       <Name>bullet1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="bullet2.png">
+    <Compile Include="Bullet\bullet2.png">
       <Name>bullet2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="bullet3.png">
+    <Compile Include="Bullet\bullet3.png">
       <Name>bullet3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="bullet4.png">
+    <Compile Include="Bullet\bullet4.png">
       <Name>bullet4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="bullet5.png">
+    <Compile Include="Bullet\bullet5.png">
       <Name>bullet5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
