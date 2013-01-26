@@ -11,10 +11,12 @@ namespace HeartAttack
     {
         private Sprite m_Sprite;
         private int m_Health;
+        private int radius;
 
         public Bug(Vector2 pPosition, int pHealth, float pSpeed)
         {
             m_Health = pHealth;
+            radius = 12;
             m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bug"), pPosition);
             Vector2 velocity = (new Vector2(HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width / 2,
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height / 2) - pPosition);
@@ -22,6 +24,12 @@ namespace HeartAttack
             velocity *= pSpeed;         
 
             m_Sprite.AddUpdater(new VelocityUpdater(velocity));
+        }
+
+        public Color Colour
+        {
+            get;
+            private set;
         }
 
         public void Update(GameTime pGameTime)
@@ -42,7 +50,8 @@ namespace HeartAttack
 
         public bool CollidesWith(Bullet pBullet)
         {
-            return false;
+            return (m_Sprite.Position - pBullet.Position).Length() <
+                pBullet.Radius + radius;
         }
 
         public bool CollidesWith(PlayerThing pPlayer)
@@ -50,10 +59,19 @@ namespace HeartAttack
             return false;
         }
 
+        public void HitByBullet(Bullet pBullet)
+        {
+            m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(1), new Vector2(0), 20));
+
+            pBullet.IsDead = true;
+        }
+
         public void ShowBug()
         {
-            Color hidden = Color.CornflowerBlue;
-            Color shown = Color.Red;
+            Color hidden = Color.Transparent;
+
+            Color shown = Color.White;
+
             m_Sprite.AddUpdater(new BugPingUpdater(hidden, shown, 500));
         }
     }

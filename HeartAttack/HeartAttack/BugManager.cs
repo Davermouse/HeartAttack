@@ -14,7 +14,7 @@ namespace HeartAttack
 
         // TODO Make this change for difficulty settings
         private int m_TimeTillNextSpawn = 0; // in Milliseconds
-        private int m_SpawnInterval = 100000; // in Milliseconds
+        private int m_SpawnInterval = 20000; // in Milliseconds
 
         public BugManager()
         {}
@@ -44,6 +44,16 @@ namespace HeartAttack
         // TODO write this
         public void TestCollisions(BulletManager pBulletManager)
         {
+            foreach (var bullet in pBulletManager.Bullets)
+            {
+                foreach (var bug in m_Bugs)
+                {
+                    if (bug.CollidesWith(bullet))
+                    {
+                        bug.HitByBullet(bullet);
+                    }
+                }
+            }
         }
 
         // TODO write this
@@ -73,6 +83,5 @@ namespace HeartAttack
                 bug.Draw();
             }
         }
-
     }
 }

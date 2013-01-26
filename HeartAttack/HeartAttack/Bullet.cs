@@ -20,6 +20,26 @@ namespace HeartAttack
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
         }
 
+        public Vector2 Position
+        {
+            get { return m_Sprite.Position; }
+        }
+
+        public bool IsDead
+        {
+            get;
+            set;
+        }
+
+        public int Radius
+        {
+            get
+            {
+                // TODO: This shouldn't be hardcoded
+                return 5;
+            }
+        }
+
         public void Update(GameTime pGameTime)
         {
             m_Sprite.Update(pGameTime);

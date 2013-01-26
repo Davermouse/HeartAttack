@@ -29,7 +29,5 @@ namespace HeartAttack
                 m_PingManager.FirePing();
             }
         }
-
-
     }
 }

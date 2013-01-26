@@ -15,6 +15,11 @@ namespace HeartAttack
             m_Bullets = new List<Bullet>();
         }
 
+        public List<Bullet> Bullets
+        {
+            get { return m_Bullets; }
+        }
+
         public void AddBullet(Bullet pBullet)
         {
             if (pBullet != null)
@@ -29,6 +34,8 @@ namespace HeartAttack
             {
                 bullet.Update(pGameTime);
             }
+
+            m_Bullets = m_Bullets.Where(b => !b.IsDead).ToList();
         }
 
         public void Draw()
