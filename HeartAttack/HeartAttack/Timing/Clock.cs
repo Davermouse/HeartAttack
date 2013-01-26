@@ -110,7 +110,7 @@ namespace HeartAttack.Timing
             }
         }
 
-        private void Reset()
+        public void Reset()
         {
             _totalElapsedTime = 0.0;
             Progress = 0.0f;

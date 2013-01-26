@@ -22,6 +22,7 @@ namespace HeartAttack.Timing
             DefaultFrame = defaultFrame;
 
             this.RepeatCount = frames.Count - 1;
+            this.BeginOffset = 0.01;
         }
 
         public Texture2D DefaultFrame

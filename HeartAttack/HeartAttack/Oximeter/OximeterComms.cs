@@ -13,11 +13,9 @@ namespace HeartAttack
 
         public Activated OximeterActivated;
 
-
         public delegate void Deactivated();
 
         public Deactivated OximeterDeactivated;
-
 
         public delegate void Pulse(int newPulse);
 
@@ -36,10 +34,10 @@ namespace HeartAttack
 
             bool found=false;
 
-            foreach ( string s in names)
+            foreach (string s in names)
                 if (s.ToUpper() == portName.ToUpper()) found=true;
 
-            if ( !found)
+            if (!found)
                 throw new Exception ("Port not available");
 
             port = new SerialPort(portName, 9600, System.IO.Ports.Parity.None, 8);

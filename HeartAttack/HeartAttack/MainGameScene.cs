@@ -24,8 +24,6 @@ namespace HeartAttack
             m_BulletManager = new BulletManager();
             m_BugManager = new BugManager(this);
             m_PingManager = new PingManager(this);
-
-          //  this.Entities.Add(m_Player);
         }
 
         public ClockManager ClockManager
@@ -56,6 +54,12 @@ namespace HeartAttack
             }
         }
 
+        public int Score
+        {
+            get;
+            set;
+        }
+
         public override Scene Update(GameTime pGameTime)
         {
             ClockManager.Update(pGameTime);
@@ -67,7 +71,6 @@ namespace HeartAttack
             m_Player.Update(pGameTime);
             Entities = Entities.Where(e => !e.IsDead).ToList();
 
-         //   m_BulletManager.Update(pGameTime);
             m_BugManager.Update(pGameTime);
             m_PingManager.Update(pGameTime);
 
@@ -93,16 +96,20 @@ namespace HeartAttack
                 entity.Draw(spriteBatch);
             }
             m_Player.Draw(spriteBatch);
+
+            var font = HeartAttack.theGameInstance.Font;
+            var screenWidth = HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width;
+
             var info =
                 "Heart rate: " + HeartAttack.theGameInstance.Oximeter.HeartRate.ToString() +
                 (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");
 
-            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, info, new Vector2(20, 20), Color.White);
+            spriteBatch.DrawString(font, info, new Vector2(20, 20), Color.White);
 
-            var score = "Health: " + Player.Health;
-            var scoreWidth = HeartAttack.theGameInstance.Font.MeasureString(score);
-            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, score, new Vector2(
-                HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - scoreWidth.X, 20), Color.White);
+            var health = "Health: " + Player.Health;
+            var healthWidth = font.MeasureString(health);
+            spriteBatch.DrawString(font, health, new Vector2(
+                screenWidth - 20 - healthWidth.X, 20), Color.White);
             var bugsKilled = "Burgers binned: " + HeartAttack.theGameInstance.bugsKilled;
             var bugsKilledWidth = HeartAttack.theGameInstance.Font.MeasureString(bugsKilled);
             spriteBatch.DrawString(HeartAttack.theGameInstance.Font, bugsKilled, new Vector2(

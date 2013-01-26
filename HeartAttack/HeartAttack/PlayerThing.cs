@@ -156,7 +156,7 @@ namespace HeartAttack
 
         public void HitByBug(Bug bug)
         {
-            this.m_Health -= 1;
+            this.m_Health -= 7;
         }
 
         private Vector2 GetGunPosition()

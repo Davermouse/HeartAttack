@@ -39,11 +39,11 @@ namespace HeartAttack
                     this.m_Sprite,
                     0.05f);
 
-        //    anim.Start();
+            anim.Start();
 
             anim.Complete += (s, e) =>
                 {
-                    anim.SkipToBegin();
+                    anim.Reset();
                     anim.Start();
                 };
         }
