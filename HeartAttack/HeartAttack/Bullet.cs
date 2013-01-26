@@ -18,7 +18,8 @@ namespace HeartAttack
             m_Power = pPower;
             m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bullet1"), pPosition);
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
-            m_Sprite.Scale = new Vector2(0.1f);
+            m_Sprite.Scale = new Vector2(0.05f);
+            m_Sprite.Centre *= m_Sprite.Scale;
         }
 
         public Vector2 Position

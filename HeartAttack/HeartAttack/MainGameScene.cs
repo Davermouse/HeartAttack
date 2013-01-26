@@ -25,7 +25,7 @@ namespace HeartAttack
             m_BugManager = new BugManager(this);
             m_PingManager = new PingManager(this);
 
-            this.Entities.Add(m_Player);
+          //  this.Entities.Add(m_Player);
         }
 
         public ClockManager ClockManager
@@ -64,7 +64,7 @@ namespace HeartAttack
             {
                 entity.Update(pGameTime);
             }
-
+            m_Player.Update(pGameTime);
             Entities = Entities.Where(e => !e.IsDead).ToList();
 
          //   m_BulletManager.Update(pGameTime);
@@ -92,7 +92,7 @@ namespace HeartAttack
             {
                 entity.Draw(spriteBatch);
             }
-
+            m_Player.Draw(spriteBatch);
             var info =
                 "Heart rate: " + HeartAttack.theGameInstance.Oximeter.HeartRate.ToString() +
                 (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");

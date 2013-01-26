@@ -24,14 +24,15 @@ namespace HeartAttack
         // TODO make appropriately random 
         private Bug GetNewBug()
         {
-            var random = new Random();
-            var angle = (float)(random.NextDouble() * MathHelper.TwoPi);
+            
+            var angle = (float)(m_Random.NextDouble() * MathHelper.TwoPi);
 
             var minScreenDimension = MathHelper.Min(
                 HeartAttack.theGameInstance.graphics.GraphicsDevice.Viewport.Height,
                 HeartAttack.theGameInstance.graphics.GraphicsDevice.Viewport.Width);
 
-            var distance = (float)(random.NextDouble() * (minScreenDimension * 2 / 3)) + (minScreenDimension / 3);
+            //var distance = (float)(m_Random.NextDouble() * (minScreenDimension * 2 / 3)) + (minScreenDimension / 3);
+            var distance = (float)(m_Random.NextDouble() * (minScreenDimension )) + (minScreenDimension / 3);
 
             var center = DirtyGlobalHelpers.CentreOfScreen();
 

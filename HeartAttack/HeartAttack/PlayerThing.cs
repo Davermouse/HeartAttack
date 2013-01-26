@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
@@ -24,6 +25,7 @@ namespace HeartAttack
         private Texture2D normalHeart;
         private List<Texture2D> lFrames;
         private List<Texture2D> sFrames;
+        public SoundEffect m_FireSound;
 
         public PlayerThing(MainGameScene scene) : base(scene)
         {
@@ -52,6 +54,7 @@ namespace HeartAttack
 
             this.m_Health = 100;
             this.Radius = 45;
+            m_FireSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("fire");
         }
 
         public int Radius
@@ -154,7 +157,7 @@ namespace HeartAttack
 
         private Vector2 GetGunPosition()
         {
-            return m_Sprite.Position + GetGunDirection() * m_Sprite.Texture.Height/2;
+            return m_Sprite.Position - m_Sprite.Scale * m_Sprite.Centre /2;
         }
 
         private Vector2 GetGunDirection()
@@ -167,7 +170,10 @@ namespace HeartAttack
             if (m_TimeToNextBullet <= 0)
             {
                 m_TimeToNextBullet = m_BulletDelay;
+                m_FireSound.Play();
                 return new Bullet(Scene, GetGunPosition(), GetGunDirection() * m_BulletSpeed, m_BulletPower);
+
+               
             }
             return null;
         }
