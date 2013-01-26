@@ -23,6 +23,7 @@ namespace HeartAttack
         private int m_BulletSpeed = 150;
 
         private Texture2D normalHeart;
+        private Texture2D cross;
         private List<Texture2D> lFrames;
         private List<Texture2D> sFrames;
         public SoundEffect m_FireSound;
@@ -32,6 +33,7 @@ namespace HeartAttack
             var content = HeartAttack.theGameInstance.Content;
 
             normalHeart = content.Load<Texture2D>("Heart/Heart");
+            cross = content.Load<Texture2D>("cross");
 
             lFrames = new List<Texture2D>()
             {
@@ -54,6 +56,7 @@ namespace HeartAttack
 
             this.m_Health = 100;
             this.Radius = 45;
+            m_Sprite.Scale = new Vector2(0.5f, 0.5f);
             m_FireSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("fire");
         }
 
@@ -148,6 +151,7 @@ namespace HeartAttack
         public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();
+           // spriteBatch.Draw(cross, this.Position - new Vector2(cross.Width/2, cross.Height/2), Color.White);
         }
 
         public void HitByBug(Bug bug)
@@ -157,7 +161,7 @@ namespace HeartAttack
 
         private Vector2 GetGunPosition()
         {
-            return m_Sprite.Position - m_Sprite.Scale * m_Sprite.Centre /2;
+            return this.Position;
         }
 
         private Vector2 GetGunDirection()
@@ -171,6 +175,7 @@ namespace HeartAttack
             {
                 m_TimeToNextBullet = m_BulletDelay;
                 m_FireSound.Play();
+                HeartAttack.theGameInstance.shotsFired++;
                 return new Bullet(Scene, GetGunPosition(), GetGunDirection() * m_BulletSpeed, m_BulletPower);
 
                

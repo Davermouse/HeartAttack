@@ -13,7 +13,7 @@ namespace HeartAttack
         //TODO change sprite to some sort of particle shiz
         private Sprite m_Sprite;
         private int m_Power;
-
+        private Texture2D cross;
         private List<Texture2D> frames = new List<Texture2D>();
 
         public Bullet(MainGameScene scene, Vector2 pPosition, Vector2 pVelocity, int pPower)
@@ -23,6 +23,7 @@ namespace HeartAttack
 
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
+            cross = content.Load<Texture2D>("cross");
             for (int i = 1; i <= 5; i++)
             {
                 frames.Add(content.Load<Texture2D>("Bullet/bullet" + i));
@@ -31,7 +32,7 @@ namespace HeartAttack
             m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
             m_Sprite.Scale = new Vector2(0.05f);
-            m_Sprite.Centre *= m_Sprite.Scale;
+            //m_Sprite.Centre *= m_Sprite.Scale;
             var anim = new SpriteAnimation(Scene.ClockManager,
                     frames,
                     frames[0],
@@ -57,7 +58,7 @@ namespace HeartAttack
             get
             {
                 // TODO: This shouldn't be hardcoded
-                return 5;
+                return 15;
             }
         }
 
@@ -79,6 +80,7 @@ namespace HeartAttack
         public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();
+          //  spriteBatch.Draw(cross, m_Sprite.Position - new Vector2(cross.Width / 2, cross.Height / 2), Color.White);
         }
     }
 }

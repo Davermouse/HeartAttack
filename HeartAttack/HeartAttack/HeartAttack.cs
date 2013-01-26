@@ -19,6 +19,8 @@ namespace HeartAttack
     {
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+        public int shotsFired;
+        public int bugsKilled;
 
         Scene m_CurrentScene = null;
 
@@ -30,6 +32,8 @@ namespace HeartAttack
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             theGameInstance = this;
+            shotsFired = 0;
+            bugsKilled = 0;
 
             graphics.SynchronizeWithVerticalRetrace = true;
         }

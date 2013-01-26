@@ -103,7 +103,19 @@ namespace HeartAttack
             var scoreWidth = HeartAttack.theGameInstance.Font.MeasureString(score);
             spriteBatch.DrawString(HeartAttack.theGameInstance.Font, score, new Vector2(
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - scoreWidth.X, 20), Color.White);
-
+            var bugsKilled = "Burgers binned: " + HeartAttack.theGameInstance.bugsKilled;
+            var bugsKilledWidth = HeartAttack.theGameInstance.Font.MeasureString(bugsKilled);
+            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, bugsKilled, new Vector2(
+            HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - bugsKilledWidth.X, 20 + 20), Color.White);
+            int accuracyValue = 0;
+            if (HeartAttack.theGameInstance.shotsFired > 0)
+            {
+                accuracyValue = (int)((float)HeartAttack.theGameInstance.bugsKilled / (float)HeartAttack.theGameInstance.shotsFired * 100);
+            }
+            var accuracy = "Accuracy: " + accuracyValue;
+            var accuracyWidth = HeartAttack.theGameInstance.Font.MeasureString(accuracy);
+            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, accuracy, new Vector2(
+                HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - accuracyWidth.X, 20 + 40), Color.White);
             spriteBatch.End();
         }
     }

@@ -19,16 +19,17 @@ namespace HeartAttack
         private MainGameScene scene;
 
         private List<Texture2D> frames;
+        private Texture2D cross;
 
         public Bug(MainGameScene scene, Vector2 pPosition, int pHealth, float pSpeed) : base(scene)
         {
             this.scene = scene;
             m_Health = pHealth;
-            radius = 12;
+            radius = 15;
 
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
-
+            cross = content.Load<Texture2D>("cross");
             for (int i = 1 ; i <= 6 ; i++)
             {
                 frames.Add(content.Load<Texture2D>("Bug/bug" + i));
@@ -36,7 +37,7 @@ namespace HeartAttack
 
             m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.Scale = new Vector2(0.05f, 0.05f);
-            m_Sprite.Centre *= m_Sprite.Scale;
+           // m_Sprite.Centre *= m_Sprite.Scale;
             m_Sprite.Colour = Color.Transparent;
 
             Vector2 velocity = (new Vector2(HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width / 2,
@@ -57,7 +58,7 @@ namespace HeartAttack
         {
             if (!runningAnimation)
             {
-                if (new Random().NextDouble() > 0.99)
+                if (new Random().NextDouble() > 0.5)
                 {
                     runningAnimation = true;
 
@@ -65,7 +66,7 @@ namespace HeartAttack
                         this.frames,
                         this.frames[0],
                         this.m_Sprite,
-                        0.15f);
+                        0.05f);
 
                     animation.Complete += (s, e) => this.runningAnimation = false;
 
@@ -79,18 +80,24 @@ namespace HeartAttack
         public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();
+          //  spriteBatch.Draw(cross, m_Sprite.Position - new Vector2(cross.Width / 2, cross.Height / 2), Color.White);
         }
 
         public bool CollidesWith(Ping pPing)
         {
-            float distanceFromCentre = (m_Sprite.Position + m_Sprite.Centre - DirtyGlobalHelpers.CentreOfScreen()).Length() - pPing.GetPingRadius();
+            float distanceFromCentre = (m_Sprite.Position - DirtyGlobalHelpers.CentreOfScreen()).Length() - pPing.GetPingRadius();
             return (distanceFromCentre > -5 && distanceFromCentre < 5);
         }
 
         public bool CollidesWith(Bullet pBullet)
         {
-            return (m_Sprite.Position - pBullet.Position).Length() <
-                pBullet.Radius + radius;
+            if ((m_Sprite.Position - pBullet.Position).Length() <
+                pBullet.Radius + radius)
+            {
+                HeartAttack.theGameInstance.bugsKilled++;
+                return true;
+            }
+            return false;
         }
 
         public bool CollidesWith(PlayerThing pPlayer)
@@ -116,7 +123,7 @@ namespace HeartAttack
             var deathLength = 0.2f;
             m_Sprite.Colour = Color.White;
             m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(this.m_Sprite.Scale.X), new Vector2(0), (int)(deathLength * 100)));
-
+            
             new Timing.Timer(scene.ClockManager, deathLength, true, (e, s) => {
                 this.IsDead = true;
             });
