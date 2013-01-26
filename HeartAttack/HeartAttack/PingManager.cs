@@ -5,17 +5,22 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System.Diagnostics;
+using HeartAttack.Timing;
 
 namespace HeartAttack
 {
     public class PingManager
     {
+        private MainGameScene scene;
+
         public SoundEffect m_HeartBeat;
         private List<Ping> m_Pings = new List<Ping>();
 
-        public PingManager()
+        public PingManager(MainGameScene scene)
         {
             m_HeartBeat = HeartAttack.theGameInstance.Content.Load<SoundEffect>("heartBeat1");
+
+            this.scene = scene;
         }
 
         public IEnumerable<Ping> Pings {
@@ -28,7 +33,10 @@ namespace HeartAttack
         {
             Debug.WriteLine("Fire");
             m_HeartBeat.Play();
-            m_Pings.Add(new Ping());
+            var newPing = new Ping(scene);
+            scene.Entities.Add(newPing);
+
+          //  new Timer(scene.ClockManager, 5, true, (s, e) => this.m_Pings.Remove(newPing));
         }
 
         public void Update(GameTime pGameTime)
@@ -44,14 +52,14 @@ namespace HeartAttack
             }
         }
 
-        public void Draw()
+       /* public void Draw()
         {
             foreach (Ping ping in m_Pings)
             {
                 ping.Draw();
             }
         }
-
+        */
         // TODO remove old pings
 
     }

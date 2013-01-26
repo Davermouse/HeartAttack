@@ -7,23 +7,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartAttack
 {
-    public class Bug
+    public class Bug : Entity
     {
         private Sprite m_Sprite;
         private int m_Health;
         private int radius;
 
-        public Bug(Vector2 pPosition, int pHealth, float pSpeed)
+        private MainGameScene scene;
+
+        public Bug(MainGameScene scene, Vector2 pPosition, int pHealth, float pSpeed) : base(scene)
         {
+            this.scene = scene;
             m_Health = pHealth;
             radius = 12;
             m_Sprite = new Sprite(HeartAttack.theGameInstance.Content.Load<Texture2D>("bug"), pPosition);
             m_Sprite.Scale = new Vector2(0.1f,0.1f);
+            m_Sprite.Colour = Color.Transparent;
+
             Vector2 velocity = (new Vector2(HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width / 2,
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height / 2) - pPosition);
             velocity.Normalize();
             velocity *= pSpeed;         
-
 
             m_Sprite.AddUpdater(new VelocityUpdater(velocity));
         }
@@ -34,18 +38,12 @@ namespace HeartAttack
             private set;
         }
 
-        public bool IsDead
-        {
-            get;
-            private set;
-        }
-
-        public void Update(GameTime pGameTime)
+        public override void Update(GameTime pGameTime)
         {
             m_Sprite.Update(pGameTime);
         }
 
-        public void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();
         }
@@ -70,8 +68,6 @@ namespace HeartAttack
 
         public void HitByBullet(Bullet pBullet)
         {
-            pBullet.IsDead = true;
-
             handleDeath();
         }
 
@@ -82,9 +78,13 @@ namespace HeartAttack
 
         private void handleDeath()
         {
-            m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(1), new Vector2(0), 20));
+            var deathLength = 0.2f;
 
+            m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(this.m_Sprite.Scale.X), new Vector2(0), (int)(deathLength * 100)));
 
+            new Timing.Timer(scene.ClockManager, deathLength, true, (e, s) => {
+                this.IsDead = true;
+            });
         }
 
         public void ShowBug()

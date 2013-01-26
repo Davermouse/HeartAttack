@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using HeartAttack.Timing;
 
 namespace HeartAttack
 {
@@ -16,27 +17,50 @@ namespace HeartAttack
 
         public MainGameScene()
         {
-            m_Player = new PlayerThing();
+            this.Entities = new List<Entity>();
+            ClockManager = new Timing.ClockManager();
+
+            m_Player = new PlayerThing(this);
             m_BulletManager = new BulletManager();
-            m_BugManager = new BugManager();
-            m_PingManager = new PingManager();
+            m_BugManager = new BugManager(this);
+            m_PingManager = new PingManager(this);
+
+            this.Entities.Add(m_Player);
+        }
+
+        public ClockManager ClockManager
+        {
+            get;
+            private set;
+        }
+
+        public List<Entity> Entities
+        {
+            get;
+            private set;
         }
 
         public override Scene Update(GameTime pGameTime)
         {
-            m_Player.Update(pGameTime);
-            m_BulletManager.Update(pGameTime);
+            ClockManager.Update(pGameTime);
+
+            foreach (var entity in Entities)
+            {
+                entity.Update(pGameTime);
+            }
+
+            Entities = Entities.Where(e => !e.IsDead).ToList();
+
+         //   m_BulletManager.Update(pGameTime);
             m_BugManager.Update(pGameTime);
             m_PingManager.Update(pGameTime);
 
-            //TODO test collisions - bugs and player - bugs and bullets
-            m_BugManager.TestCollisions(m_Player);
-            m_BugManager.TestCollisions(m_BulletManager);
-            m_BugManager.TestCollisions(m_PingManager);
-
             if (GamePad.GetState(PlayerIndex.One).Triggers.Right > 0.9)
             {
-                m_BulletManager.AddBullet(m_Player.FireBullet());
+                var newBullet = m_Player.FireBullet();
+
+                if (newBullet != null)
+                    Entities.Add(newBullet);
             }
 
             return this;
@@ -44,19 +68,22 @@ namespace HeartAttack
 
         public override void Draw(GameTime pGameTime)
         {
-            HeartAttack.theGameInstance.spriteBatch.Begin();
-            m_PingManager.Draw();
-            m_BugManager.Draw();
-            m_Player.Draw();
-            m_BulletManager.Draw();
+            var spriteBatch = HeartAttack.theGameInstance.spriteBatch;
+
+            spriteBatch.Begin();
+
+            foreach (var entity in Entities)
+            {
+                entity.Draw(spriteBatch);
+            }
 
             var info =
                 "Heart rate: " + HeartAttack.theGameInstance.Oximeter.HeartRate.ToString() +
                 (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");
 
-            HeartAttack.theGameInstance.spriteBatch.DrawString(HeartAttack.theGameInstance.Font, info, new Vector2(20, 20), Color.White);
+            spriteBatch.DrawString(HeartAttack.theGameInstance.Font, info, new Vector2(20, 20), Color.White);
 
-            HeartAttack.theGameInstance.spriteBatch.End();
+            spriteBatch.End();
         }
     }
 }

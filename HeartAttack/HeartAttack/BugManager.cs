@@ -9,15 +9,17 @@ namespace HeartAttack
     public class BugManager
     {
         private Random m_Random = new Random();
-        private List<Bug> m_Bugs = new List<Bug>();
 
+        private MainGameScene scene;
 
         // TODO Make this change for difficulty settings
         private int m_TimeTillNextSpawn = 0; // in Milliseconds
         private int m_SpawnInterval = 5000; // in Milliseconds
 
-        public BugManager()
-        {}
+        public BugManager(MainGameScene scene)
+        {
+            this.scene = scene;
+        }
 
         // TODO make appropriately random 
         private Bug GetNewBug()
@@ -37,7 +39,7 @@ namespace HeartAttack
                 center.X + distance * (float)Math.Sin(angle),
                 center.Y + distance * (float)Math.Cos(angle));
 
-            return new Bug(position, 10, 5);
+            return new Bug(scene, position, 10, 5);
         }
        
         public void Update(GameTime pGameTime)
@@ -46,22 +48,17 @@ namespace HeartAttack
 
             if (m_TimeTillNextSpawn <= 0)
             {
-                m_Bugs.Add(GetNewBug());
+                scene.Entities.Add(GetNewBug());
                 m_TimeTillNextSpawn += m_SpawnInterval;
             }
-
-            foreach (Bug bug in m_Bugs)
-            {
-                bug.Update(pGameTime);
-            }
         }
-
+        /*
         // TODO write this
         public void TestCollisions(BulletManager pBulletManager)
         {
             foreach (var bullet in pBulletManager.Bullets)
             {
-                foreach (var bug in m_Bugs)
+                foreach (var bug in m_Bugs.Where(b => !b.IsDead))
                 {
                     if (bug.CollidesWith(bullet))
                     {
@@ -82,7 +79,7 @@ namespace HeartAttack
                 }
             }
         }
-
+        
         // TODO write this
         public void TestCollisions(PingManager pPingManager)
         {
@@ -97,13 +94,13 @@ namespace HeartAttack
                 }
             }
         }
-
-        public void Draw()
+        */
+        /*public void Draw()
         {
             foreach (Bug bug in m_Bugs)
             {
                 bug.Draw();
             }
-        }
+        }*/
     }
 }

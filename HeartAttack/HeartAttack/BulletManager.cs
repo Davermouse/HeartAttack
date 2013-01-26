@@ -38,12 +38,12 @@ namespace HeartAttack
             m_Bullets = m_Bullets.Where(b => !b.IsDead).ToList();
         }
 
-        public void Draw()
+      /*  public void Draw()
         {
             foreach (Bullet bullet in m_Bullets)
             {
                 bullet.Draw();
             }
-        }
+        }*/
     }
 }

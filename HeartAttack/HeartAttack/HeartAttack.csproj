@@ -77,6 +77,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletManager.cs" />
     <Compile Include="DirtyGlobalHelpers.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="MainGameScene.cs" />
     <Compile Include="MockPulseMonitor.cs" />
     <Compile Include="Oximeter\OximeterComms.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="SpriteUpdater.cs" />
     <Compile Include="Timing\Clock.cs" />
     <Compile Include="Timing\ClockManager.cs" />
+    <Compile Include="Timing\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace HeartAttack
 {
-    public class PlayerThing
+    public class PlayerThing : Entity
     {
         private Sprite m_Sprite;
 
@@ -21,7 +21,7 @@ namespace HeartAttack
         private int m_BulletPower = 10;
         private int m_BulletSpeed = 100;
 
-        public PlayerThing()
+        public PlayerThing(MainGameScene scene) : base(scene)
         {
             Texture2D texture = HeartAttack.theGameInstance.Content.Load<Texture2D>("playerThing");
             m_Sprite = new Sprite(texture,
@@ -42,7 +42,7 @@ namespace HeartAttack
             get { return m_Sprite.Position; }
         }
 
-        public void Update(GameTime pGameTime)
+        public override void Update(GameTime pGameTime)
         {
             if (m_TimeToNextBullet > 0)
             {
@@ -56,7 +56,7 @@ namespace HeartAttack
             }
         }
 
-        public void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();
         }
@@ -81,7 +81,7 @@ namespace HeartAttack
             if (m_TimeToNextBullet <= 0)
             {
                 m_TimeToNextBullet = m_BulletDelay;
-                return new Bullet(GetGunPosition(), GetGunDirection() * m_BulletSpeed, m_BulletPower);
+                return new Bullet(Scene, GetGunPosition(), GetGunDirection() * m_BulletSpeed, m_BulletPower);
             }
             return null;
         }

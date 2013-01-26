@@ -6,8 +6,13 @@ using Microsoft.Xna.Framework;
 
 namespace HeartAttack.Timing
 {
-    class ClockManager
+    public class ClockManager
     {
+        public ClockManager()
+        {
+            this.Clocks = new List<Clock>();
+        }
+
         public List<Clock> Clocks
         {
             get;
@@ -23,7 +28,7 @@ namespace HeartAttack.Timing
 
             foreach (var clock in tempClocks)
             {
-                clock.Update(time);
+                clock.Update(time.ElapsedGameTime.TotalSeconds);
             }
         }
     }
