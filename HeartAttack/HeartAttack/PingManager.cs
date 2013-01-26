@@ -28,6 +28,11 @@ namespace HeartAttack
 
         public void Update(GameTime pGameTime)
         {
+            if (HeartAttack.theGameInstance.Oximeter.HasBeat)
+            {
+                FirePing();
+            }
+
             foreach (Ping ping in m_Pings)
             {
                 ping.Update(pGameTime);

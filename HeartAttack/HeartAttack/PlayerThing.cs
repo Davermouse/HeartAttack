@@ -26,6 +26,20 @@ namespace HeartAttack
             Texture2D texture = HeartAttack.theGameInstance.Content.Load<Texture2D>("playerThing");
             m_Sprite = new Sprite(texture,
                 DirtyGlobalHelpers.CentreOfScreen());
+
+            this.m_Health = 100;
+            this.Radius = 15;
+        }
+
+        public int Radius
+        {
+            get;
+            private set;
+        }
+
+        public Vector2 Position
+        {
+            get { return m_Sprite.Position; }
         }
 
         public void Update(GameTime pGameTime)
@@ -45,6 +59,11 @@ namespace HeartAttack
         public void Draw()
         {
             m_Sprite.Draw();
+        }
+
+        public void HitByBug(Bug bug)
+        {
+            this.m_Health -= 1;
         }
 
         private Vector2 GetGunPosition()

@@ -13,7 +13,6 @@ namespace HeartAttack
         private BulletManager m_BulletManager;
         private BugManager m_BugManager;
         private PingManager m_PingManager;
-        private MockPulseMonitor m_Pulse;
 
         public MainGameScene()
         {
@@ -21,12 +20,10 @@ namespace HeartAttack
             m_BulletManager = new BulletManager();
             m_BugManager = new BugManager();
             m_PingManager = new PingManager();
-            m_Pulse = new MockPulseMonitor(30, m_PingManager);
         }
 
         public override Scene Update(GameTime pGameTime)
         {
-            m_Pulse.Update(pGameTime);
             m_Player.Update(pGameTime);
             m_BulletManager.Update(pGameTime);
             m_BugManager.Update(pGameTime);
@@ -52,6 +49,13 @@ namespace HeartAttack
             m_BugManager.Draw();
             m_Player.Draw();
             m_BulletManager.Draw();
+
+            var info =
+                "Heart rate: " + HeartAttack.theGameInstance.Oximeter.HeartRate.ToString() +
+                (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");
+
+            HeartAttack.theGameInstance.spriteBatch.DrawString(HeartAttack.theGameInstance.Font, info, new Vector2(20, 20), Color.White);
+
             HeartAttack.theGameInstance.spriteBatch.End();
         }
     }

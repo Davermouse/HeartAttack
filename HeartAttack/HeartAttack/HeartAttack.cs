@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using HeartAttack.Oximeter;
 
 namespace HeartAttack
 {
@@ -31,6 +32,18 @@ namespace HeartAttack
             theGameInstance = this;
         }
 
+        public OximeterManager Oximeter
+        {
+            get;
+            private set;
+        }
+
+        public SpriteFont Font
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -52,8 +65,13 @@ namespace HeartAttack
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Oximeter = new OximeterManager();
+            Oximeter.Start();
+
+            this.Font = this.Content.Load<SpriteFont>("MainFont");
+
             m_CurrentScene = new MainGameScene();
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -76,6 +94,8 @@ namespace HeartAttack
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            Oximeter.Update(gameTime);
+
             m_CurrentScene = m_CurrentScene.Update(gameTime);
             // TODO: Add your update logic here
 
@@ -88,10 +108,19 @@ namespace HeartAttack
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkSlateGray);
+            if (!Oximeter.HasBeat)
+            {
+                GraphicsDevice.Clear(Color.DarkSlateGray);
+            }
+            else
+            {
+                GraphicsDevice.Clear(Color.Red);
+            }
 
             // TODO: Add your drawing code here
             m_CurrentScene.Draw(gameTime);
+
+            Oximeter.ResetBeat();
             base.Draw(gameTime);
         }
     }

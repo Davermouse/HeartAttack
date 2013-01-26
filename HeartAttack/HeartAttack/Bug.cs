@@ -32,6 +32,12 @@ namespace HeartAttack
             private set;
         }
 
+        public bool IsDead
+        {
+            get;
+            private set;
+        }
+
         public void Update(GameTime pGameTime)
         {
             m_Sprite.Update(pGameTime);
@@ -56,14 +62,27 @@ namespace HeartAttack
 
         public bool CollidesWith(PlayerThing pPlayer)
         {
-            return false;
+            return (m_Sprite.Position - pPlayer.Position).Length() <
+                this.radius + pPlayer.Radius;
         }
 
         public void HitByBullet(Bullet pBullet)
         {
+            pBullet.IsDead = true;
+
+            handleDeath();
+        }
+
+        public void HitPlayer(PlayerThing player)
+        {
+            handleDeath();
+        }
+
+        private void handleDeath()
+        {
             m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(1), new Vector2(0), 20));
 
-            pBullet.IsDead = true;
+
         }
 
         public void ShowBug()

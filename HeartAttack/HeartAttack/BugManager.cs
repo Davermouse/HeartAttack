@@ -14,7 +14,7 @@ namespace HeartAttack
 
         // TODO Make this change for difficulty settings
         private int m_TimeTillNextSpawn = 0; // in Milliseconds
-        private int m_SpawnInterval = 20000; // in Milliseconds
+        private int m_SpawnInterval = 5000; // in Milliseconds
 
         public BugManager()
         {}
@@ -22,7 +22,22 @@ namespace HeartAttack
         // TODO make appropriately random 
         private Bug GetNewBug()
         {
-            return new Bug(new Vector2(100, 100), 10, 5);
+            var random = new Random();
+            var angle = (float)(random.NextDouble() * MathHelper.TwoPi);
+
+            var minScreenDimension = MathHelper.Min(
+                HeartAttack.theGameInstance.graphics.GraphicsDevice.Viewport.Height,
+                HeartAttack.theGameInstance.graphics.GraphicsDevice.Viewport.Width);
+
+            var distance = (float)(random.NextDouble() * (minScreenDimension * 2 / 3)) + (minScreenDimension / 3);
+
+            var center = DirtyGlobalHelpers.CentreOfScreen();
+
+            var position = new Vector2(
+                center.X + distance * (float)Math.Sin(angle),
+                center.Y + distance * (float)Math.Cos(angle));
+
+            return new Bug(position, 10, 5);
         }
        
         public void Update(GameTime pGameTime)
@@ -59,6 +74,13 @@ namespace HeartAttack
         // TODO write this
         public void TestCollisions(PlayerThing pPlayer)
         {
+            foreach (var bug in m_Bugs.Where(b => !b.IsDead))
+            {
+                if (bug.CollidesWith(pPlayer))
+                {
+                    bug.HitPlayer(pPlayer);
+                }
+            }
         }
 
         // TODO write this

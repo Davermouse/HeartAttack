@@ -79,6 +79,8 @@
     <Compile Include="DirtyGlobalHelpers.cs" />
     <Compile Include="MainGameScene.cs" />
     <Compile Include="MockPulseMonitor.cs" />
+    <Compile Include="Oximeter\OximeterComms.cs" />
+    <Compile Include="Oximeter\OximeterManager.cs" />
     <Compile Include="Ping.cs" />
     <Compile Include="PingManager.cs" />
     <Compile Include="PlayerThing.cs" />
@@ -88,6 +90,8 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteUpdater.cs" />
+    <Compile Include="Timing\Clock.cs" />
+    <Compile Include="Timing\ClockManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
