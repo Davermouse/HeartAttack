@@ -39,7 +39,7 @@ namespace HeartAttack
             maxKillChain = 0;
 
             graphics.SynchronizeWithVerticalRetrace = true;
-           // graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
         }
 
         public OximeterManager Oximeter
@@ -119,6 +119,8 @@ namespace HeartAttack
             m_CurrentScene = m_CurrentScene.Update(gameTime);
             // TODO: Add your update logic here
 
+            InputManager.Update();
+
             base.Update(gameTime);
         }
 
@@ -128,7 +130,7 @@ namespace HeartAttack
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (!Oximeter.HasBeat)
+            if (true || !Oximeter.HasBeat)
             {
                 GraphicsDevice.Clear(Color.DarkSlateGray);
             }

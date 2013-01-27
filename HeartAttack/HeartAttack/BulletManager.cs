@@ -9,13 +9,13 @@ namespace HeartAttack
 {
     public class BulletManager
     {
-        
+        private MainGameScene m_Scene;
         private List<Bullet> m_Bullets;
 
-        public BulletManager()
+        public BulletManager(MainGameScene scene)
         {
             m_Bullets = new List<Bullet>();
-            
+            this.m_Scene = scene;
         }
 
         public List<Bullet> Bullets
@@ -44,24 +44,22 @@ namespace HeartAttack
 
         public int CalculateChainLength()
         {
-            int startIndex = 0;
             int countHits = 0;
             int maxChainCount = 0;
-            for (int i = 0; i < m_Bullets.Count; i++)
+
+            foreach (var pair in m_Scene.Entities.OfType<Bullet>().Select((b,i) => new { b = b, i = i}))
             {
-                Bullet bullet = m_Bullets[i];
+                Bullet bullet = pair.b;
                 if(bullet.IsMiss)
                 {
                     if (maxChainCount < countHits) 
                     {
                         maxChainCount = countHits;                        
                     }
-                    for (int j = startIndex; j <= i; j++)
-                    {
-                        Bullet bullet2 = m_Bullets[j];
-                        bullet2.CanDelete = true;
-                    }
-                    startIndex = i+1;
+                   foreach (var deadBullet in m_Scene.Entities.OfType<Bullet>().Take(pair.i))
+                        {
+                            deadBullet.Kill();
+                        }
                     countHits = 0;
                 }
                 else if (bullet.IsDead)
@@ -71,7 +69,6 @@ namespace HeartAttack
                 else
                 {
                     // still in transit
-                    startIndex = i+1;
                     countHits = 0;
                 }
             }

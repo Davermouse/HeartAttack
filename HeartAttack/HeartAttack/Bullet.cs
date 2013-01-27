@@ -25,14 +25,14 @@ namespace HeartAttack
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
             cross = content.Load<Texture2D>("cross");
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 4; i++)
             {
                 frames.Add(content.Load<Texture2D>("Bullet/bullet" + i));
             }
 
             m_Sprite = new Sprite(frames[0], pPosition);
             m_Sprite.AddUpdater(new VelocityUpdater(pVelocity));
-            m_Sprite.Scale = new Vector2(0.05f);
+            m_Sprite.Scale = new Vector2(0.15f);
             //m_Sprite.Centre *= m_Sprite.Scale;
             var anim = new SpriteAnimation(Scene.ClockManager,
                     frames,
@@ -72,6 +72,11 @@ namespace HeartAttack
                 // TODO: This shouldn't be hardcoded
                 return 15;
             }
+        }
+
+        public void Kill()
+        {
+            this.IsDead = true;
         }
 
         public override void Update(GameTime pGameTime)

@@ -22,13 +22,15 @@ namespace HeartAttack
         private Effect m_Ripple;
         private EffectParameter m_PingLengthsParameter;
 
-        public MainGameScene(int restingHeartRate)
+        private AIDirector director;
+
+        public MainGameScene(int restingHeartRate, bool heartCore)
         {
             this.Entities = new List<Entity>();
             ClockManager = new Timing.ClockManager();
 
             m_Player = new PlayerThing(this, restingHeartRate);
-            m_BulletManager = new BulletManager();
+            m_BulletManager = new BulletManager(this);
             m_BugManager = new BugManager(this);
             // m_PingManager = new PingManager(this);
             m_PingManager = new NewPingManager(this);
@@ -50,6 +52,9 @@ namespace HeartAttack
                 HeartAttack.theGameInstance.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight, true,
                 m_ShaderRenderTarget.Format
                 );
+
+            director = new AIDirector(m_Player, heartCore);
+
         }
 
         public ClockManager ClockManager
@@ -97,6 +102,8 @@ namespace HeartAttack
             m_Player.Update(pGameTime);
             Entities = Entities.Where(e => !e.IsDead).ToList();
 
+            HeartAttack.theGameInstance.maxKillChain = m_BulletManager.CalculateChainLength();
+
             m_BugManager.Update(pGameTime);
             m_PingManager.Update(pGameTime);
 
@@ -109,6 +116,8 @@ namespace HeartAttack
             }
 
             m_PingLengthsParameter.SetValue(m_PingManager.Pings);
+
+            director.ModifyDifficulty(pGameTime);
 
             if (m_Player.Health <= 0)
             {
@@ -168,7 +177,7 @@ namespace HeartAttack
             var healthWidth = font.MeasureString(health);
             spriteBatch.DrawString(font, health, new Vector2(
                 screenWidth - 20 - healthWidth.X, 20), Color.White);
-            var bugsKilled = "Burgers binned: " + HeartAttack.theGameInstance.bugsKilled;
+            var bugsKilled = "Bugs binned: " + HeartAttack.theGameInstance.bugsKilled;
             var bugsKilledWidth = HeartAttack.theGameInstance.Font.MeasureString(bugsKilled);
             spriteBatch.DrawString(HeartAttack.theGameInstance.Font, bugsKilled, new Vector2(
             HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - bugsKilledWidth.X, 20 + 20), Color.White);
@@ -184,8 +193,8 @@ namespace HeartAttack
 
             var maxChainLength = "Max Kill Chain: " + HeartAttack.theGameInstance.maxKillChain;
             var maxChainLengthWidth = font.MeasureString(maxChainLength);
-            spriteBatch.DrawString(font, maxChainLength, new Vector2(
-                screenWidth - 20 - maxChainLengthWidth.X, 20), Color.White);
+         /*   spriteBatch.DrawString(font, maxChainLength, new Vector2(
+                screenWidth - 20 - maxChainLengthWidth.X, 80), Color.White);*/
         }
     }
 }

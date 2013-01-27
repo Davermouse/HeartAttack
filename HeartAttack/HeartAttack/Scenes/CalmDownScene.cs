@@ -23,7 +23,7 @@ namespace HeartAttack.Scenes
         {
             if (InputManager.ButtonAPressed)
             {
-                return new CalmingConfigScene();
+                return new CalmingConfigScene(false);
             }
 
             return this;

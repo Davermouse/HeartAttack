@@ -23,6 +23,7 @@ namespace HeartAttack
         private MainGameScene scene;
 
         private List<Texture2D> frames;
+        private List<Texture2D> blinkFrames;
         private Texture2D cross;
 
         public Bug(MainGameScene scene, Vector2 pPosition, int pHealth, float pSpeed) : base(scene)
@@ -34,14 +35,21 @@ namespace HeartAttack
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
             cross = content.Load<Texture2D>("cross");
-            for (int i = 1 ; i <= 6 ; i++)
+            for (int i = 1 ; i <= 4 ; i++)
             {
                 frames.Add(content.Load<Texture2D>("Bug/bug" + i));
             }
+
+            blinkFrames = new List<Texture2D>();
+            for (int i = 1; i <= 4; i++)
+            {
+                blinkFrames.Add(content.Load<Texture2D>("Bug/bugblink" + i));
+            }
+
             m_bugDeathSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("bugDeath1");
             m_HeartHitSound = HeartAttack.theGameInstance.Content.Load<SoundEffect>("heartHit");
             m_Sprite = new Sprite(frames[0], pPosition);
-            m_Sprite.Scale = new Vector2(0.05f, 0.05f);
+            m_Sprite.Scale = new Vector2(0.1f, 0.1f);
            // m_Sprite.Centre *= m_Sprite.Scale;
             m_Sprite.Colour = Color.Transparent;
 
@@ -63,12 +71,27 @@ namespace HeartAttack
         {
             if (!runningAnimation)
             {
-                if (new Random().NextDouble() > 0.5)
+                if (new Random().NextDouble() > 0.95)
                 {
                     runningAnimation = true;
 
                     var animation = new SpriteAnimation(Scene.ClockManager,
                         this.frames,
+                        this.frames[0],
+                        this.m_Sprite,
+                        0.05f);
+
+                    animation.Complete += (s, e) => this.runningAnimation = false;
+
+                    animation.Start();
+                }
+
+                if (new Random().NextDouble() > 0.99)
+                {
+                    runningAnimation = true;
+
+                    var animation = new SpriteAnimation(Scene.ClockManager,
+                        this.blinkFrames,
                         this.frames[0],
                         this.m_Sprite,
                         0.05f);

@@ -15,11 +15,11 @@ namespace HeartAttack.Scenes
 
         public GameOverScene()
         {
-            m_GameOverTexture = HeartAttack.theGameInstance.Content.Load<Texture2D>("gameoverPlaceholder");
             if (HeartAttack.theGameInstance.bugsKilled > DirtyGlobalHelpers.highscore)
             {
                 DirtyGlobalHelpers.highscore = HeartAttack.theGameInstance.bugsKilled;
             }
+            m_GameOverTexture = HeartAttack.theGameInstance.Content.Load<Texture2D>("gameover");
         }
 
         public override Scene Update(Microsoft.Xna.Framework.GameTime pGameTime)

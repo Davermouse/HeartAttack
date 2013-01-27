@@ -18,12 +18,12 @@ namespace HeartAttack
 
         public static void LoadHighscores()
         {
-            StreamReader tr = new StreamReader("highscore.txt");
+//            StreamReader tr = new StreamReader("highscore.txt");
 
             int highscore = 0;
             try
             {
-                highscore = int.Parse(tr.ReadLine());
+        //        highscore = int.Parse(tr.ReadLine());
             }
             catch { }
             DirtyGlobalHelpers.highscore = highscore;
@@ -47,14 +47,14 @@ namespace HeartAttack
 
         public const int MAX_TIME_BUGS_SHOWN = 1000;
         public const int MIN_TIME_BUGS_SHOWN = 150;
-        public const int MAX_SPAWN_INTERVAL = 5000;
-        public const int MIN_SPAWN_INTERVAL = 1000;
-        public const int MAX_BULLET_DELAY = 500;
-        public const int MIN_BULLET_DELAY = 100;
-        public const int MAX_BULLET_SPEED = 800;
-        public const int MIN_BULLET_SPEED = 200;
+        public const int MAX_SPAWN_INTERVAL = 1000;
+        public const int MIN_SPAWN_INTERVAL = 100;
+        public const int MAX_BULLET_DELAY = 800;
+        public const int MIN_BULLET_DELAY = 400;
+        public const int MAX_BULLET_SPEED = 500;
+        public const int MIN_BULLET_SPEED = 300;
         public const int MAX_BUG_SPEED = 600;
-        public const int MIN_BUG_SPEED = 20;
+        public const int MIN_BUG_SPEED = 80;
         public const int STRESS_THRESHHOLD = 5;
         public const int BUG_SPEED_STEP = 5;
         public const int BUG_SPAWN_INTERVAL_STEP = 200;
@@ -64,11 +64,11 @@ namespace HeartAttack
 
         public class Config
         {
-            public int TimeBugsShown = 300;
-            public int BugSpeed = 40;
-            public int BugSpawnInterval = 5000;
-            public int BulletDelay = 400;
-            public int BulletSpeed = 200;
+            public int TimeBugsShown = MAX_TIME_BUGS_SHOWN;
+            public int BugSpeed = MIN_BUG_SPEED;
+            public int BugSpawnInterval = DirtyGlobalHelpers.MAX_SPAWN_INTERVAL;
+            public int BulletDelay = MIN_BULLET_DELAY;
+            public int BulletSpeed = MAX_BULLET_SPEED;
 
             public void IncreaseBugSpeed()
             {

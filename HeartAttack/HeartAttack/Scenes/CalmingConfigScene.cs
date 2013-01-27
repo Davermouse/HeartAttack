@@ -16,6 +16,8 @@ namespace HeartAttack.Scenes
         private double timeWithBeat;
         private States state;
 
+        private bool heartCoreMode;
+
         private readonly int averagingTime = 10;
         private readonly int countDownLength = 3;
 
@@ -26,8 +28,9 @@ namespace HeartAttack.Scenes
             Countdown
         }
 
-        public CalmingConfigScene()
+        public CalmingConfigScene(bool heartCore)
         {
+            this.heartCoreMode = heartCore;
             m_ConfigTexture = HeartAttack.theGameInstance.Content.Load<Texture2D>("background");
             state = States.WaitingForBeat;
         }
@@ -54,7 +57,7 @@ namespace HeartAttack.Scenes
 
             if (timeWithBeat > averagingTime + countDownLength)
             {
-                return new MainGameScene(HeartAttack.theGameInstance.Oximeter.HeartRate);
+                return new MainGameScene(HeartAttack.theGameInstance.Oximeter.HeartRate, heartCoreMode);
             }
 
          //   return new MainGameScene();

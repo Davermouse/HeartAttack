@@ -23,6 +23,9 @@ namespace HeartAttack
         private int m_BulletSpeed = 150;
 
         private int m_RestingHeartRate;
+        private int m_HeartRateModifier;
+
+        private GameTime startGametime;
 
         private Texture2D normalHeart;
         private Texture2D cross;
@@ -91,6 +94,8 @@ namespace HeartAttack
 
         public override void Update(GameTime pGameTime)
         {
+            if (startGametime == null) startGametime = pGameTime;
+
             foreach (var bug in Scene.CollidingEntities.OfType<Bug>())
             {
                 if (bug.CollidesWith(this))
@@ -112,6 +117,8 @@ namespace HeartAttack
             {
                 m_Sprite.Allign(v);
             }
+
+            this.m_HeartRateModifier = (int)((pGameTime.TotalGameTime.TotalSeconds - startGametime.TotalGameTime.TotalSeconds) / 4);
 
             var timeSinceBeat = pGameTime.TotalGameTime.TotalSeconds - LastBeatTime;
 
@@ -158,7 +165,7 @@ namespace HeartAttack
         {
             int currentHeartRate = 80;
             
-            int difference = currentHeartRate - m_RestingHeartRate;
+            int difference = currentHeartRate + m_HeartRateModifier - m_RestingHeartRate;
             if (difference > 0 && difference > DirtyGlobalHelpers.STRESS_THRESHHOLD)
             {
                 return true;
@@ -174,7 +181,7 @@ namespace HeartAttack
 
         public void HitByBug(Bug bug)
         {
-            this.m_Health -= 5;
+            this.m_Health -= 10;
         }
 
         private Vector2 GetGunPosition()

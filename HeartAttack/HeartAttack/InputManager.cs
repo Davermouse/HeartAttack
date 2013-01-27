@@ -75,14 +75,15 @@ namespace HeartAttack
                 bool result = false;
                 if (g.IsConnected)
                 {
-                    result = (g.Buttons.A == ButtonState.Pressed) != (oldGame.Buttons.A == ButtonState.Pressed);
+                    result = 
+                        (g.Buttons.A == ButtonState.Pressed) != 
+                        (oldGame.Buttons.A == ButtonState.Pressed);
                 }
                 else
                 {
                     result = k.IsKeyDown(Keys.A) && oldKeys.IsKeyUp(Keys.A);
                 }
-                oldGame = g;
-                oldKeys = k;
+
                 return result;
             }
         }
@@ -97,14 +98,15 @@ namespace HeartAttack
                 bool result = false;
                 if (g.IsConnected)
                 {
-                    result = (g.DPad.Up == ButtonState.Pressed) != (oldGame.DPad.Up == ButtonState.Pressed);
+                    result = 
+                        (g.DPad.Up == ButtonState.Pressed) != 
+                        (oldGame.DPad.Up == ButtonState.Pressed);
                 }
                 else
                 {
                     result = k.IsKeyDown(Keys.Up) && oldKeys.IsKeyUp(Keys.Up);
                 }
-                oldGame = g;
-                oldKeys = k;
+
                 return result;
             }
         }
@@ -125,10 +127,15 @@ namespace HeartAttack
                 {
                     result = k.IsKeyDown(Keys.Down) && oldKeys.IsKeyUp(Keys.Down);
                 }
-                oldGame = g;
-                oldKeys = k;
+
                 return result;
             }
+        }
+
+        public static void Update()
+        {
+            oldGame = GamePad.GetState(PlayerIndex.One);
+            oldKeys = Keyboard.GetState();
         }
     }
 }

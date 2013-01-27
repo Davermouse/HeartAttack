@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace HeartAttack
 {
@@ -18,28 +19,38 @@ namespace HeartAttack
             m_Heartcore = pHeartcore;
         }
 
-        public void ModifyDifficulty()
+        private double lastUpdate;
+        public void ModifyDifficulty(GameTime gameTime)
         {
-            if (m_Heartcore)
+            if (lastUpdate == 0)
             {
-                if (m_Player.IsStressed())
-                {
-                    MakeHarder();
-                }
-                else
-                {
-                    MakeEasier();
-                }
+                lastUpdate = gameTime.TotalGameTime.TotalSeconds;
             }
-            else
+
+            if (gameTime.TotalGameTime.TotalSeconds - lastUpdate > 10)
             {
-                if (m_Player.IsStressed())
+                lastUpdate = gameTime.TotalGameTime.TotalSeconds;
+                if (m_Heartcore)
                 {
-                    MakeEasier();
+                    if (m_Player.IsStressed())
+                    {
+                        MakeHarder();
+                    }
+                    else
+                    {
+                        //  MakeEasier();
+                    }
                 }
                 else
                 {
-                    MakeHarder();
+                    if (m_Player.IsStressed())
+                    {
+                        MakeEasier();
+                    }
+                    else
+                    {
+                        MakeHarder();
+                    }
                 }
             }
         }
