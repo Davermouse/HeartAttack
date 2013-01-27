@@ -100,7 +100,7 @@ namespace HeartAttack
             m_BugManager.Update(pGameTime);
             m_PingManager.Update(pGameTime);
 
-            if (InputManager.ButtonAPressed)
+            if (InputManager.ButtonADown)
             {
                 var newBullet = m_Player.FireBullet();
 

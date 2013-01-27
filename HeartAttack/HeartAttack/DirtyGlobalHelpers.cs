@@ -29,7 +29,7 @@ namespace HeartAttack
         public const int MIN_BULLET_SPEED = 200;
         public const int MAX_BUG_SPEED = 600;
         public const int MIN_BUG_SPEED = 20;
-        public const int STRESS_THRESHHOLD = 10;
+        public const int STRESS_THRESHHOLD = 5;
         public const int BUG_SPEED_STEP = 5;
         public const int BUG_SPAWN_INTERVAL_STEP = 200;
         public const int BULLET_SPEED_STEP = 20;
