@@ -22,26 +22,43 @@ namespace HeartAttack
         {
             if (m_Heartcore)
             {
-            //    if (m_Player.IsStressed())
-            //    {
-            //        MakeHarder();
-            //    }
-            //    else
-            //    {
-            //        MakeEasier();
-            //    }
-            //}
-            //else
-            //{
-            //    if (m_Player.IsStressed())
-            //    {
-            //        MakeEasier();
-            //    }
-            //    else
-            //    {
-            //        MakeHarder();
-            //    }
+                if (m_Player.IsStressed())
+                {
+                    MakeHarder();
+                }
+                else
+                {
+                    MakeEasier();
+                }
             }
+            else
+            {
+                if (m_Player.IsStressed())
+                {
+                    MakeEasier();
+                }
+                else
+                {
+                    MakeHarder();
+                }
+            }
+        }
+        public void MakeHarder()
+        {
+            DirtyGlobalHelpers.config.IncreaseBugSpeed();
+            DirtyGlobalHelpers.config.IncreaseBugSpawnInterval();
+            DirtyGlobalHelpers.config.IncreaseBulletDelay();
+            DirtyGlobalHelpers.config.DecreaseBulletSpeed();
+            DirtyGlobalHelpers.config.DecreaseTimeBugsVisible();
+        }
+
+        public void MakeEasier()
+        {
+            DirtyGlobalHelpers.config.DecreaseBugSpeed();
+            DirtyGlobalHelpers.config.DecreaseBugSpawnInterval();
+            DirtyGlobalHelpers.config.DecreaseBulletDelay();
+            DirtyGlobalHelpers.config.IncreaseBulletSpeed();
+            DirtyGlobalHelpers.config.IncreaseTimeBugsVisible();
         }
     }
 }

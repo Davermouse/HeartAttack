@@ -28,7 +28,6 @@ namespace HeartAttack
             if (pBullet != null)
             {
                 m_Bullets.Add(pBullet); 
-               
             }
            
         }
@@ -42,6 +41,26 @@ namespace HeartAttack
 
             m_Bullets = m_Bullets.Where(b => !b.IsDead).ToList();
         }
+
+        //public int CalculateChainLength()
+        //{
+        //    bool noneAreMissOrDead = true;
+        //    int countHits = 0;
+        //    int maxChainCount = 0;
+        //    foreach (Bullet bullet in m_Bullets)
+        //    {
+        //        if(bullet.IsMiss)
+        //        {
+        //            if (maxChainCount < countHits) 
+        //            {
+        //                maxChainCount = countHits;
+        //            }
+        //        }
+        //        else if (bullet
+        //    }
+        //    if (
+        //    return 0;
+        //}
 
       /*  public void Draw()
         {

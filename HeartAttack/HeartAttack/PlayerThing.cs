@@ -154,6 +154,18 @@ namespace HeartAttack
             }
         }
 
+        public bool IsStressed()
+        {
+            int currentHeartRate = 80;
+            
+            int difference = currentHeartRate - m_RestingHeartRate;
+            if (difference > 0 && difference > DirtyGlobalHelpers.STRESS_THRESHHOLD)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             m_Sprite.Draw();

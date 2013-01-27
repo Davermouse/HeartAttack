@@ -29,14 +29,64 @@ namespace HeartAttack
         public const int MIN_BULLET_SPEED = 200;
         public const int MAX_BUG_SPEED = 600;
         public const int MIN_BUG_SPEED = 20;
+        public const int STRESS_THRESHHOLD = 10;
+        public const int BUG_SPEED_STEP = 5;
+        public const int BUG_SPAWN_INTERVAL_STEP = 200;
+        public const int BULLET_SPEED_STEP = 20;
+        public const int BULLET_DELAY_STEP = 20;
+        public const int BUG_VISIBLE_STEP = 5;
 
         public class Config
         {
             public int TimeBugsShown = 300;
-            public int BugSpeed = 20;
+            public int BugSpeed = 40;
             public int BugSpawnInterval = 5000;
             public int BulletDelay = 400;
             public int BulletSpeed = 200;
+
+            public void IncreaseBugSpeed()
+            {
+                BugSpeed += BUG_SPEED_STEP;
+            }
+            public void DecreaseBugSpeed()
+            {
+                BugSpeed -= BUG_SPEED_STEP;
+            }
+            public void IncreaseBugSpawnInterval()
+            {
+                BugSpawnInterval += BUG_SPAWN_INTERVAL_STEP;
+            }
+            public void DecreaseBugSpawnInterval()
+            {
+                BugSpawnInterval -= BUG_SPAWN_INTERVAL_STEP;
+            }
+
+            public void IncreaseBulletSpeed()
+            {
+                BugSpeed += BUG_SPEED_STEP;
+            }
+            public void DecreaseBulletSpeed()
+            {
+                BugSpeed -= BUG_SPEED_STEP;
+            }
+            public void IncreaseBulletDelay()
+            {
+                BulletDelay += BULLET_DELAY_STEP;
+            }
+            public void DecreaseBulletDelay()
+            {
+                BulletDelay -= BULLET_DELAY_STEP;
+            }
+            public void IncreaseTimeBugsVisible()
+            {
+                TimeBugsShown += BUG_VISIBLE_STEP;
+            }
+            public void DecreaseTimeBugsVisible()
+            {
+                TimeBugsShown -= BUG_VISIBLE_STEP;
+            }
+
+
         }
 
         public static Config config = new Config();

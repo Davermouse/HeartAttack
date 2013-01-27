@@ -20,7 +20,7 @@ namespace HeartAttack
             : base(scene)
         {
             m_Power = pPower;
-
+            IsMiss = false;
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
             cross = content.Load<Texture2D>("cross");
@@ -53,6 +53,12 @@ namespace HeartAttack
             get { return m_Sprite.Position; }
         }
 
+        public bool IsMiss
+        {
+            get;
+            set;
+        }
+
         public int Radius
         {
             get
@@ -74,6 +80,21 @@ namespace HeartAttack
                     this.IsDead = true;
                     break;
                 }
+            }
+            LeftScreen();
+        }
+
+        public void LeftScreen()
+        {
+            Vector2 screenCentre = DirtyGlobalHelpers.CentreOfScreen();
+            float leftEdge = 0;
+            float rightEdge = screenCentre.X * 2;
+            float topEdge = 0;
+            float bottomEdge = screenCentre.Y * 2;
+
+            if (Position.X < leftEdge || Position.X > rightEdge || Position.Y < topEdge || Position.Y > bottomEdge)
+            {
+                IsMiss = true;
             }
         }
 
