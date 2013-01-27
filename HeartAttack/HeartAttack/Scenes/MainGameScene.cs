@@ -160,7 +160,7 @@ namespace HeartAttack
 
             var info =
                 "Heart rate: " + HeartAttack.theGameInstance.Oximeter.HeartRate.ToString() +
-                (HeartAttack.theGameInstance.Oximeter.IsConnected ? "" : " Simulated");
+                (HeartAttack.theGameInstance.Oximeter.HasHeartbeat ? "" : " Simulated");
 
             spriteBatch.DrawString(font, info, new Vector2(20, 20), Color.White);
 

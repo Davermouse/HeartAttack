@@ -27,6 +27,12 @@ namespace HeartAttack.Oximeter
             private set;
         }
 
+        public bool HasHeartbeat
+        {
+            get;
+            private set;
+        }
+
         public bool HasBeat
         {
             get;
@@ -37,7 +43,7 @@ namespace HeartAttack.Oximeter
         {
             get
             {
-                if (IsConnected)
+                if (HasHeartbeat)
                 {
                     return actualHeartRate;
                 }
@@ -63,13 +69,22 @@ namespace HeartAttack.Oximeter
         public void Start()
         {
             Oximeter = new OximeterComms();
-            Oximeter.Setup("com3");
+
+            if (!Oximeter.Setup("com3"))
+            {
+                IsConnected = false;
+                return;
+            }
+            else
+            {
+                IsConnected = true;
+            }
 
             Oximeter.OximeterActivated += () =>
-                this.IsConnected = true;
+                this.HasHeartbeat = true;
 
             Oximeter.OximeterDeactivated += () =>
-                this.IsConnected = false;
+                this.HasHeartbeat = false;
 
             Oximeter.OximeterPulse += (r) =>
                 {
@@ -80,7 +95,7 @@ namespace HeartAttack.Oximeter
 
         public void Update(GameTime time)
         {
-            if (!this.IsConnected)
+            if (!this.HasHeartbeat)
             {
                 double millisBetweenBeats = 60000 / SimulatedHeartRate;
 

@@ -52,6 +52,12 @@ namespace HeartAttack
             private set;
         }
 
+        public SpriteFont BigFont
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -78,6 +84,7 @@ namespace HeartAttack
             Oximeter.Start();
 
             this.Font = this.Content.Load<SpriteFont>("MainFont");
+            this.BigFont = this.Content.Load<SpriteFont>("BigUIFont");
 
             m_CurrentScene = new TitleScene();
         }

@@ -32,8 +32,10 @@ namespace HeartAttack.Scenes
         public override void Draw(Microsoft.Xna.Framework.GameTime pGameTime)
         {
             var spriteBatch = HeartAttack.theGameInstance.spriteBatch;
+            var font = HeartAttack.theGameInstance.Font;
 
             spriteBatch.Begin();
+
             HeartAttack.theGameInstance.spriteBatch.Draw(m_CalmDownTexture, Vector2.Zero, Color.White);
             spriteBatch.End();
         }

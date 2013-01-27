@@ -23,11 +23,11 @@ namespace HeartAttack
 
         SerialPort port = null;
 
-        public string Setup(string portName)
+        public bool Setup(string portName)
         {
             string [] names = SerialPort.GetPortNames();
-            if ( names.Length==0 ) 
-                throw new Exception("No serial ports");
+            if (names.Length == 0)
+                return false;
 
             if ( portName == "" )
                 portName = names[0];
@@ -46,7 +46,7 @@ namespace HeartAttack
 
             port.Open();
 
-            return portName;
+            return found;
         }
 
         public void Close()

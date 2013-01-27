@@ -192,7 +192,7 @@
       <Name>heartHit</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-	  </Compile>
+    </Compile>
     <Compile Include="backgroundPlaceholder.png">
       <Name>backgroundPlaceholder</Name>
       <Importer>TextureImporter</Importer>
@@ -235,6 +235,13 @@
       <Name>background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BigUIFont.spritefont">
+      <Name>BigUIFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

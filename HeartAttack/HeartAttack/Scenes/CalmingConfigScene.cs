@@ -13,14 +13,24 @@ namespace HeartAttack.Scenes
     public class CalmingConfigScene : Scene
     {
         public Texture2D m_ConfigTexture;
+        private double timeWithBeat;
 
         public CalmingConfigScene()
         {
-            m_ConfigTexture = HeartAttack.theGameInstance.Content.Load<Texture2D>("configPlaceholder");
+            m_ConfigTexture = HeartAttack.theGameInstance.Content.Load<Texture2D>("background");
         }
 
         public override Scene Update(Microsoft.Xna.Framework.GameTime pGameTime)
         {
+
+            if (HeartAttack.theGameInstance.Oximeter.HasHeartbeat)
+            {
+                timeWithBeat += pGameTime.TotalGameTime.TotalSeconds;
+            }
+            else
+            {
+                timeWithBeat = 0;
+            }
 
             return new MainGameScene();
 
@@ -30,9 +40,22 @@ namespace HeartAttack.Scenes
         public override void Draw(Microsoft.Xna.Framework.GameTime pGameTime)
         {
             var spriteBatch = HeartAttack.theGameInstance.spriteBatch;
+            var bigFont = HeartAttack.theGameInstance.BigFont;
+            var font = HeartAttack.theGameInstance.Font;
+            var oximeter = HeartAttack.theGameInstance.Oximeter;
 
             spriteBatch.Begin();
             HeartAttack.theGameInstance.spriteBatch.Draw(m_ConfigTexture, Vector2.Zero, Color.White);
+            
+            var screenCenter = DirtyGlobalHelpers.CentreOfScreen();
+
+            var beatText = oximeter.HasHeartbeat ?
+                oximeter.HeartRate.ToString() :
+                "--";
+            var beatSize = bigFont.MeasureString(beatText);
+
+            spriteBatch.DrawString(bigFont, beatText, new Vector2(screenCenter.X - beatSize.X / 2, screenCenter.Y - beatSize.Y / 2), Color.White);
+
             spriteBatch.End();
         }        
     }
