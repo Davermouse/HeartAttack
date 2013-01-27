@@ -20,7 +20,7 @@ namespace HeartAttack.Scenes
 
         public override Scene Update(Microsoft.Xna.Framework.GameTime pGameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            if (InputManager.ButtonAPressed)
             {
                 return new TitleScene();
             }

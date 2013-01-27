@@ -103,10 +103,12 @@ namespace HeartAttack
                 m_TimeToNextBullet -= pGameTime.ElapsedGameTime.Milliseconds;
             }
 
-            float length = GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Length();
+            Vector2 v = InputManager.LeftThumbStick;
+
+            float length = v.Length();
             if (length < 1.1 && length > 0.9)
             {
-                m_Sprite.Allign(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left);
+                m_Sprite.Allign(v);
             }
 
             var timeSinceBeat = pGameTime.TotalGameTime.TotalSeconds - LastBeatTime;
