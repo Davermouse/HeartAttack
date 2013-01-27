@@ -177,10 +177,15 @@ namespace HeartAttack
             {
                 accuracyValue = (int)((float)HeartAttack.theGameInstance.bugsKilled / (float)HeartAttack.theGameInstance.shotsFired * 100);
             }
-            var accuracy = "Accuracy: " + accuracyValue;
+            var accuracy = "Accuracy: " + accuracyValue + "%";
             var accuracyWidth = HeartAttack.theGameInstance.Font.MeasureString(accuracy);
             spriteBatch.DrawString(HeartAttack.theGameInstance.Font, accuracy, new Vector2(
                 HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width - 20 - accuracyWidth.X, 20 + 40), Color.White);
+
+            var maxChainLength = "Max Kill Chain: " + HeartAttack.theGameInstance.maxKillChain;
+            var maxChainLengthWidth = font.MeasureString(maxChainLength);
+            spriteBatch.DrawString(font, maxChainLength, new Vector2(
+                screenWidth - 20 - maxChainLengthWidth.X, 20), Color.White);
         }
     }
 }

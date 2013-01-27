@@ -22,6 +22,7 @@ namespace HeartAttack
         public SpriteBatch spriteBatch;
         public int shotsFired;
         public int bugsKilled;
+        public int maxKillChain;
 
         Scene m_CurrentScene = null;
 
@@ -35,6 +36,7 @@ namespace HeartAttack
             theGameInstance = this;
             shotsFired = 0;
             bugsKilled = 0;
+            maxKillChain = 0;
 
             graphics.SynchronizeWithVerticalRetrace = true;
            // graphics.IsFullScreen = true;

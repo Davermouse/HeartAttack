@@ -21,6 +21,7 @@ namespace HeartAttack
         {
             m_Power = pPower;
             IsMiss = false;
+            CanDelete = false;
             frames = new List<Texture2D>();
             var content = HeartAttack.theGameInstance.Content;
             cross = content.Load<Texture2D>("cross");
@@ -58,6 +59,11 @@ namespace HeartAttack
             get;
             set;
         }
+        public bool CanDelete
+        {
+            get;
+            set;
+        }
 
         public int Radius
         {
@@ -87,12 +93,12 @@ namespace HeartAttack
         public void LeftScreen()
         {
             Vector2 screenCentre = DirtyGlobalHelpers.CentreOfScreen();
-            float leftEdge = 0;
-            float rightEdge = screenCentre.X * 2;
-            float topEdge = 0;
-            float bottomEdge = screenCentre.Y * 2;
+            float screenRadius = screenCentre.Length();
+            Vector2 relativePosition = Position - screenCentre;
+            float distance = relativePosition.Length();
 
-            if (Position.X < leftEdge || Position.X > rightEdge || Position.Y < topEdge || Position.Y > bottomEdge)
+
+            if (distance > screenRadius)
             {
                 IsMiss = true;
             }

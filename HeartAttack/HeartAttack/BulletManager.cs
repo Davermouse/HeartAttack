@@ -38,29 +38,45 @@ namespace HeartAttack
             {
                 bullet.Update(pGameTime);
             }
-
-            m_Bullets = m_Bullets.Where(b => !b.IsDead).ToList();
+            HeartAttack.theGameInstance.maxKillChain = CalculateChainLength();
+            m_Bullets = m_Bullets.Where(b => !b.CanDelete).ToList();
         }
 
-        //public int CalculateChainLength()
-        //{
-        //    bool noneAreMissOrDead = true;
-        //    int countHits = 0;
-        //    int maxChainCount = 0;
-        //    foreach (Bullet bullet in m_Bullets)
-        //    {
-        //        if(bullet.IsMiss)
-        //        {
-        //            if (maxChainCount < countHits) 
-        //            {
-        //                maxChainCount = countHits;
-        //            }
-        //        }
-        //        else if (bullet
-        //    }
-        //    if (
-        //    return 0;
-        //}
+        public int CalculateChainLength()
+        {
+            int startIndex = 0;
+            int countHits = 0;
+            int maxChainCount = 0;
+            for (int i = 0; i < m_Bullets.Count; i++)
+            {
+                Bullet bullet = m_Bullets[i];
+                if(bullet.IsMiss)
+                {
+                    if (maxChainCount < countHits) 
+                    {
+                        maxChainCount = countHits;                        
+                    }
+                    for (int j = startIndex; j <= i; j++)
+                    {
+                        Bullet bullet2 = m_Bullets[j];
+                        bullet2.CanDelete = true;
+                    }
+                    startIndex = i+1;
+                    countHits = 0;
+                }
+                else if (bullet.IsDead)
+                {
+                    countHits++;
+                }
+                else
+                {
+                    // still in transit
+                    startIndex = i+1;
+                    countHits = 0;
+                }
+            }
+            return maxChainCount;
+        }
 
       /*  public void Draw()
         {
