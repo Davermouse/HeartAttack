@@ -109,7 +109,10 @@ namespace HeartAttack
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                DirtyGlobalHelpers.SaveHighscores();
                 this.Exit();
+            }
 
             Oximeter.Update(gameTime);
 

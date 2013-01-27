@@ -66,13 +66,17 @@ namespace HeartAttack.Scenes
                 flowColour = Color.Red;
                 heartcoreColour = Color.DimGray;
             }
-
+            var font = HeartAttack.theGameInstance.Font;
             spriteBatch.Begin();
             HeartAttack.theGameInstance.spriteBatch.Draw(m_TitleTexture, Vector2.Zero, Color.White);
             HeartAttack.theGameInstance.spriteBatch.Draw(m_FlowTexture, m_FlowRectangle, flowColour);
             HeartAttack.theGameInstance.spriteBatch.Draw(m_HeartcoreTexture, m_HeartcoreRectangle, heartcoreColour);
-
+            var highscore = "Highscore: " + HeartAttack.theGameInstance.highscore;
+            var highscoreWidth = font.MeasureString(highscore);
+            spriteBatch.DrawString(font, highscore, new Vector2(
+                DirtyGlobalHelpers.CentreOfScreen().X - highscoreWidth.X, DirtyGlobalHelpers.CentreOfScreen().Y - highscoreWidth.Y), Color.White);
             spriteBatch.End();
+            
         }
     }
 }

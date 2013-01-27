@@ -3,15 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 namespace HeartAttack
 {
     public static class DirtyGlobalHelpers
     {
+        public static int highscore = 0;
         public static Vector2 CentreOfScreen()
         {
             return new Vector2((HeartAttack.theGameInstance.GraphicsDevice.Viewport.Width) / 2,
                 (HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height) / 2);
+        }
+
+        public static void LoadHighscores()
+        {
+            StreamReader tr = new StreamReader("highscore.txt");
+
+            int highscore = 0;
+            try
+            {
+                highscore = int.Parse(tr.ReadLine());
+            }
+            catch { }
+            DirtyGlobalHelpers.highscore = highscore;
+        }
+
+        public static void SaveHighscores()
+        {
+            StreamWriter tr = new StreamWriter("highscore.txt");
+
+            try
+            {
+                tr.WriteLine(DirtyGlobalHelpers.highscore);
+            }
+            catch { }
         }
 
         #region config variables

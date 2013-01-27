@@ -12,6 +12,7 @@ namespace HeartAttack
         {
             using (HeartAttack game = new HeartAttack())
             {
+                DirtyGlobalHelpers.LoadHighscores();
                 game.Run();
             }
         }
