@@ -79,16 +79,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Bug\bug5.png">
-      <Name>bug5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Bug\bug6.png">
-      <Name>bug6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Bullet\bullet1.png">
       <Name>bullet1</Name>
       <Importer>TextureImporter</Importer>
@@ -106,11 +96,6 @@
     </Compile>
     <Compile Include="Bullet\bullet4.png">
       <Name>bullet4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Bullet\bullet5.png">
-      <Name>bullet5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -262,8 +247,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+
     <Compile Include="greyBar.png">
       <Name>greyBar</Name>
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+	</Compile>
+    <Compile Include="Bug\bug.png">
+      <Name>bug</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Bug\bugBLINK1.png">
+      <Name>bugBLINK1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Bug\bugBLINK2.png">
+      <Name>bugBLINK2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Bug\bugBLINK3.png">
+      <Name>bugBLINK3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Bug\bugBLINK4.png">
+      <Name>bugBLINK4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
