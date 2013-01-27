@@ -30,8 +30,10 @@ namespace HeartAttack
         private List<Texture2D> sFrames;
         public SoundEffect m_FireSound;
 
-        public PlayerThing(MainGameScene scene) : base(scene)
+        public PlayerThing(MainGameScene scene, int restingHeartRate) : base(scene)
         {
+            m_RestingHeartRate = restingHeartRate;
+
             var content = HeartAttack.theGameInstance.Content;
 
             normalHeart = content.Load<Texture2D>("Heart/Heart");
@@ -170,7 +172,7 @@ namespace HeartAttack
             Vector2 dimensions = new Vector2(m_Sprite.Texture.Width, m_Sprite.Texture.Height);
             dimensions *= m_Sprite.Scale;
             float length = dimensions.Length();
-            length *= 0.75f;
+            length *= 0.25f;
 
             direction *= length;
             Vector2 gunPosition = this.Position + direction;
@@ -179,7 +181,8 @@ namespace HeartAttack
 
         private Vector2 GetGunDirection()
         {
-            return new Vector2((float)Math.Sin(m_Sprite.Rotation), -(float)Math.Cos(m_Sprite.Rotation));
+            var rotation = m_Sprite.Rotation + Math.PI / 16;
+            return new Vector2((float)Math.Sin(rotation), -(float)Math.Cos(rotation));
         }
 
         public Bullet FireBullet()

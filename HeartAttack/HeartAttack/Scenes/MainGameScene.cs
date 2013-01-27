@@ -22,12 +22,12 @@ namespace HeartAttack
         private Effect m_Ripple;
         private EffectParameter m_PingLengthsParameter;
 
-        public MainGameScene()
+        public MainGameScene(int restingHeartRate)
         {
             this.Entities = new List<Entity>();
             ClockManager = new Timing.ClockManager();
 
-            m_Player = new PlayerThing(this);
+            m_Player = new PlayerThing(this, restingHeartRate);
             m_BulletManager = new BulletManager();
             m_BugManager = new BugManager(this);
             // m_PingManager = new PingManager(this);

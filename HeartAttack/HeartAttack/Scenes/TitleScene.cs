@@ -21,7 +21,14 @@ namespace HeartAttack.Scenes
         {
             if (InputManager.ButtonAPressed)
             {
-                return new CalmingConfigScene();
+                if (HeartAttack.theGameInstance.Oximeter.IsConnected)
+                {
+                    return new CalmingConfigScene();
+                }
+                else
+                {
+                    return new MainGameScene(HeartAttack.theGameInstance.Oximeter.SimulatedHeartRate);
+                }
             }
 
             return this;
