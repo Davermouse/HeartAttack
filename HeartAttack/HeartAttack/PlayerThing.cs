@@ -163,7 +163,16 @@ namespace HeartAttack
 
         private Vector2 GetGunPosition()
         {
-            return this.Position;
+            Vector2 direction = GetGunDirection();
+            direction.Normalize();
+            Vector2 dimensions = new Vector2(m_Sprite.Texture.Width, m_Sprite.Texture.Height);
+            dimensions *= m_Sprite.Scale;
+            float length = dimensions.Length();
+            length *= 0.75f;
+
+            direction *= length;
+            Vector2 gunPosition = this.Position + direction;
+            return gunPosition;
         }
 
         private Vector2 GetGunDirection()

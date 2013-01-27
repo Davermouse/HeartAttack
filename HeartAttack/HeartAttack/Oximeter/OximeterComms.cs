@@ -38,7 +38,7 @@ namespace HeartAttack
                 if (s.ToUpper() == portName.ToUpper()) found=true;
 
             if (!found)
-                throw new Exception ("Port not available");
+                return false;
 
             port = new SerialPort(portName, 9600, System.IO.Ports.Parity.None, 8);
 
