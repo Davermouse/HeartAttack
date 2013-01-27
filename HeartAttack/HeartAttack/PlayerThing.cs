@@ -18,9 +18,11 @@ namespace HeartAttack
 
         //TODO add ability to upgrade this stuff
         private int m_BulletDelay = 500;
-        private int m_Health;
+        private int m_Health = 100;
         private int m_BulletPower = 10;
         private int m_BulletSpeed = 150;
+
+        private int m_RestingHeartRate;
 
         private Texture2D normalHeart;
         private Texture2D cross;
@@ -40,7 +42,7 @@ namespace HeartAttack
                 content.Load<Texture2D>("Heart/Heartl1"),
                 content.Load<Texture2D>("Heart/Heartl2"),
                 content.Load<Texture2D>("Heart/Heartl3"),
-                content.Load<Texture2D>("Heart/Heartl4")
+              //  content.Load<Texture2D>("Heart/Heartl4")
             };
 
             sFrames = new List<Texture2D>()
@@ -48,7 +50,7 @@ namespace HeartAttack
                 content.Load<Texture2D>("Heart/Hearts1"),
                 content.Load<Texture2D>("Heart/Hearts2"),
                 content.Load<Texture2D>("Heart/Hearts3"),
-                content.Load<Texture2D>("Heart/Hearts4")
+            //    content.Load<Texture2D>("Heart/Hearts4")
             };
 
             m_Sprite = new Sprite(normalHeart,
@@ -124,7 +126,7 @@ namespace HeartAttack
             }
             else if (timeSinceBeat < 0.3)
             {
-                m_Sprite.Texture = sFrames[3];
+                m_Sprite.Texture = sFrames[0]; // HACK
             } 
             else if (timeSinceBeat < 0.375)
             {
@@ -140,7 +142,7 @@ namespace HeartAttack
             }
             else if (timeSinceBeat < 0.4)
             {
-                m_Sprite.Texture = lFrames[3];
+                m_Sprite.Texture = lFrames[0]; // HACK
             }
             else
             {
@@ -156,7 +158,7 @@ namespace HeartAttack
 
         public void HitByBug(Bug bug)
         {
-            this.m_Health -= 7;
+            this.m_Health -= 5;
         }
 
         private Vector2 GetGunPosition()
@@ -173,12 +175,10 @@ namespace HeartAttack
         {
             if (m_TimeToNextBullet <= 0)
             {
-                m_TimeToNextBullet = m_BulletDelay;
+                m_TimeToNextBullet = DirtyGlobalHelpers.config.BulletDelay;
                 m_FireSound.Play();
                 HeartAttack.theGameInstance.shotsFired++;
-                return new Bullet(Scene, GetGunPosition(), GetGunDirection() * m_BulletSpeed, m_BulletPower);
-
-               
+                return new Bullet(Scene, GetGunPosition(), GetGunDirection() * DirtyGlobalHelpers.config.BulletSpeed, m_BulletPower);
             }
             return null;
         }

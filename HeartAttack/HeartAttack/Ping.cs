@@ -20,7 +20,7 @@ namespace HeartAttack
                 (HeartAttack.theGameInstance.GraphicsDevice.Viewport.Height) / 2));
 
             var lifeTime = 1;
-            m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(0, 0), new Vector2(5, 5), lifeTime * 1000));
+            //m_Sprite.AddUpdater(new ScaleLerpUpdater(new Vector2(0, 0), new Vector2(5, 5), lifeTime * 1000));
             new Timer(scene.ClockManager, lifeTime, true, (s, e) => this.IsDead = true);
         }
 

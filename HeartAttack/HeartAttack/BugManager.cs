@@ -14,7 +14,6 @@ namespace HeartAttack
 
         // TODO Make this change for difficulty settings
         private int m_TimeTillNextSpawn = 0; // in Milliseconds
-        private int m_SpawnInterval = 5000; // in Milliseconds
 
         public BugManager(MainGameScene scene)
         {
@@ -40,7 +39,7 @@ namespace HeartAttack
                 center.X + distance * (float)Math.Sin(angle),
                 center.Y + distance * (float)Math.Cos(angle));
 
-            var speed = (float)(10 + (m_Random.NextDouble() * 20));
+            var speed = (float)(DirtyGlobalHelpers.config.BugSpeed + (m_Random.NextDouble() * 20));
             return new Bug(scene, position, 10, speed);
         }
        
@@ -51,7 +50,7 @@ namespace HeartAttack
             if (m_TimeTillNextSpawn <= 0)
             {
                 scene.Entities.Add(GetNewBug());
-                m_TimeTillNextSpawn += m_SpawnInterval;
+                m_TimeTillNextSpawn += DirtyGlobalHelpers.config.BugSpawnInterval;
             }
         }
         /*

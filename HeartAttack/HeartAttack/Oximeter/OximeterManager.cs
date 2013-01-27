@@ -63,7 +63,7 @@ namespace HeartAttack.Oximeter
         public void Start()
         {
             Oximeter = new OximeterComms();
-            Oximeter.Setup("");
+            Oximeter.Setup("com3");
 
             Oximeter.OximeterActivated += () =>
                 this.IsConnected = true;

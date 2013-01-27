@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>980143e8-375f-4a26-96da-eb4091a308d0</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -72,14 +72,18 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIDirector.cs" />
     <Compile Include="Bug.cs" />
     <Compile Include="BugManager.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletManager.cs" />
     <Compile Include="DirtyGlobalHelpers.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="MainGameScene.cs" />
-    <Compile Include="MockPulseMonitor.cs" />
+    <Compile Include="Scenes\CalmDownScene.cs" />
+    <Compile Include="Scenes\CalmingConfigScene.cs" />
+    <Compile Include="Scenes\GameOverScene.cs" />
+    <Compile Include="Scenes\MainGameScene.cs" />
+    <Compile Include="NewPingManager.cs" />
     <Compile Include="Oximeter\OximeterComms.cs" />
     <Compile Include="Oximeter\OximeterManager.cs" />
     <Compile Include="Ping.cs" />
@@ -88,7 +92,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="HeartAttack.cs" />
-    <Compile Include="Scene.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\TitleScene.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteUpdater.cs" />
     <Compile Include="Timing\Clock.cs" />

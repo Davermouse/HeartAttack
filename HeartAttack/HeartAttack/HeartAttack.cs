@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using HeartAttack.Oximeter;
+using HeartAttack.Scenes;
 
 namespace HeartAttack
 {
@@ -78,7 +79,7 @@ namespace HeartAttack
 
             this.Font = this.Content.Load<SpriteFont>("MainFont");
 
-            m_CurrentScene = new MainGameScene();
+            m_CurrentScene = new TitleScene();
         }
 
         /// <summary>

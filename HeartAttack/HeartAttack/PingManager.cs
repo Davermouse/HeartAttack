@@ -28,10 +28,9 @@ namespace HeartAttack
                 return m_Pings;    
             }
         }
-
+        
         public void FirePing()
         {
-            Debug.WriteLine("Fire");
             m_HeartBeat.Play();
             var newPing = new Ping(scene);
             scene.Entities.Add(newPing);
