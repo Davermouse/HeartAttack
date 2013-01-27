@@ -80,6 +80,7 @@
     <Compile Include="DirtyGlobalHelpers.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="PowerBar.cs" />
     <Compile Include="Scenes\CalmDownScene.cs" />
     <Compile Include="Scenes\CalmingConfigScene.cs" />
     <Compile Include="Scenes\GameOverScene.cs" />
